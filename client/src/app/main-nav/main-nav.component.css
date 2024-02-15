@@ -1,0 +1,66 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.custom-avatar {
+  width: 50px;
+  height: 50px;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the entire space of the avatar */
+  border-radius: 50%; /* Makes the avatar image round */
+}
+
+.logo-text {
+ font-weight: 200;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ color:indigo;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Align items vertically */
+  padding-top: 1cap;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  height: 100%; /* Ensure content container fills available vertical space */
+}
+
+.main-content {
+  width: 100%; /* Adjust width as needed */
+}
+
+.layout-main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* padding: 0rem 0rem 0rem 0rem; /* sets main content gutters */
+  min-height: 100vh;
+  width: 100%; /* Adjust width as needed */
+}
+
+.layout-main {
+  flex: 1 1 auto;
+}

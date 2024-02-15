@@ -1,0 +1,36 @@
+<mat-sidenav-container>
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>
+      <div class="logo-container">
+      <div mat-card-avatar class="custom-avatar"><img src="./assets/images/bee.jpg" alt="Avatar" class="avatar-image"></div>
+      <span class="logo-text">Bee Brilliant</span>
+    </div>
+    </mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="home">Home</a>
+      <a mat-list-item routerLink="quiz">Quizzes</a>
+      <a mat-list-item routerLink="admin">Admin</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="content-container">
+    <mat-toolbar color="secondary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span></span>
+    </mat-toolbar>
+    <div class="layout-main-container">
+      <div class="layout-main">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

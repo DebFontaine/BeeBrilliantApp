@@ -1,0 +1,31 @@
+<div>
+      <mat-card>
+        <mat-card-header class="center">
+          <mat-card-title>Scoreboard</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <mat-progress-bar mode="determinate" [value]="calculateProgressValue()" class="top-padding"></mat-progress-bar>
+          <div class="score-container">
+            <span class="center-span">Correct Answers</span>
+          </div>
+          <div class="score-container">
+            <span class="score">{{correct}}</span>
+            <span>/</span>
+            <span class="total">{{total}}</span>
+          </div>
+          <div class="incorrect-container">
+            <span class="center-span">Incorrect Answers</span>
+          </div>
+          <div class="incorrect-container">
+          <span class="center-span">{{incorrect}}</span>
+        </div>
+        </mat-card-content>
+        <mat-card-footer *ngIf="quizComplete()" class="button-container">
+            <div>
+                <button mat-raised-button color="primary" [disabled]="!quizComplete()">View Report</button>
+                <button mat-raised-button color="accent" [disabled]="!quizComplete()" (click)="replay()">Replay</button>
+            </div>
+        </mat-card-footer>
+      </mat-card>
+</div>

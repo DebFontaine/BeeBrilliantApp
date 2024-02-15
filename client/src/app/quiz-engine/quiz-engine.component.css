@@ -1,0 +1,26 @@
+.container-horiz {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width:100%
+}
+
+.question-container {
+    margin-right: 20px; /* Add margin to create space between fillin-question and game-scoreboard */
+}
+
+
+.button-container {
+    width: 100%; /* Calculate width with margins included */
+    background-color: white;
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    align-items: center; /* Center the buttons vertically */
+    padding: 10px; /* Adjust padding as needed */
+    margin-top: 10px;
+  }
+
+  .button-container button {
+    margin: 0 5px; /* Add space between buttons */
+  }

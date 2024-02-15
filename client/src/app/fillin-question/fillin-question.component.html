@@ -1,0 +1,24 @@
+<div>
+<mat-card class="fillin-card">
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"></div>
+      <mat-card-title>{{title}}</mat-card-title>
+      <mat-card-subtitle>{{level}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="imageData">
+    <mat-card-content>
+        <div *ngIf="!showStaticText" class="letter-container">
+            <div *ngFor="let letter of letters; let i = index;" class="letter-input">
+              <input #inputElement type="text" [(ngModel)]="letters[i].userInput" (input)="checkLetter(i)" maxlength="1">
+              <span *ngIf="letters[i].userInput && letters[i].userInput.toLowerCase() !== letters[i].letter.toLowerCase()">❌</span>
+            </div>
+        </div>
+        <div *ngIf="showStaticText" class="word-container">
+              <span>{{ word.toUpperCase()}}</span>
+              <mat-icon *ngIf="success"  class="correct-answer">check_circle</mat-icon>
+              <mat-icon *ngIf="!success"  class="incorrect-answer">error</mat-icon>
+        </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+  

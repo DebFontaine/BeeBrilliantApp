@@ -1,0 +1,45 @@
+.score-container {
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Align items vertically */
+    font-size: large;
+    padding-top: 1cap;
+  }
+
+  .score-card {
+    max-width: 600px;
+  }
+
+  .center-span {
+    text-align: center;
+  }
+  
+  .incorrect-container {
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Align items vertically */
+    font-size: large;
+    padding-top: 1cap;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .top-padding {
+    padding-top: 1cap;
+  }
+  .button-container div {
+    padding-top: 1cap;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .button-container div button {
+    width: 90%;
+    margin-bottom: 10px; /* Adjust spacing between buttons */
+  }

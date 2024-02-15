@@ -1,0 +1,45 @@
+/* Style for the container of the text boxes */
+.letter-container {
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Align items vertically */
+    font-size: large;
+    padding-top: 1cap;
+  }
+  .correct-answer {
+    color: green; /* Set color to green */
+    margin-right: 5px; /* Add some space between the icon and the text */
+  }
+  .incorrect-answer {
+    color: red; /* Set color to red */
+    margin-right: 5px; /* Add some space between the icon and the text */
+  }
+  .word-container {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Align items vertically */
+    font-size: large;
+    padding-top: 1cap;
+  }
+  /* Style for each text box */
+  .letter-input {
+    margin-right: 5px; /* Add some margin between text boxes */
+  }
+  
+  /* Style to limit the size of the text boxes */
+  input[type="text"] {
+    width: 24px; /* Adjust the width to fit one character */
+    height: 24px;
+  }
+
+  .fillin-card {
+    max-width: 400px;
+  }
+  
+  .fillin-header-image {
+    background-size: cover;
+  }
+  .header-image {
+    background-image: url('/assets/images/bee.jpg');
+    background-size: cover;
+  }
