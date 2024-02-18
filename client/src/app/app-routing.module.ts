@@ -6,14 +6,21 @@ import { HomeComponent } from "./home/home.component";
 import { QuizzesComponent } from "./quizzes/quizzes.component";
 import { AdminComponent } from "./admin/admin.component";
 import { QuizEngineComponent } from "./quiz-engine/quiz-engine.component";
+import { authGuard } from "./guards/auth.guard";
+import { NotFoundComponent } from "./errors/not-found/not-found.component";
+import { ServerErrorComponent } from "./errors/server-error/server-error.component";
+import { adminGuard } from "./guards/admin.guard";
 
 const routes: Routes = [
     {path: '', component: MainNavComponent,
     children: [
       {path: 'home', component: HomeComponent},
-      {path: 'quizzes', component: QuizzesComponent},
-      {path: 'quiz', component: QuizEngineComponent},
-      {path: 'admin', component: AdminComponent},
+      {path: 'quizzes', component: QuizzesComponent, canActivate:[authGuard]},
+      {path: 'quiz', component: QuizEngineComponent,canActivate:[authGuard]},
+      {path: 'admin', component: AdminComponent,canActivate:[authGuard, adminGuard]},
+      {path: 'not-found', component: NotFoundComponent},
+      {path: 'server-error', component: ServerErrorComponent},
+      {path: '**', component: NotFoundComponent, pathMatch: 'full'}
     ]}
   ];
 

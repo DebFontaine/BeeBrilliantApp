@@ -1,0 +1,14 @@
+<div class="content-container">
+    <h1>Internal Server Error - refreshing the page will make the error dissappear</h1>
+    <ng-container *ngIf="error">
+        <h5 class="text-danger">Error: {{error.message}}</h5>
+        <p>Dev Notes: Want to debug?</p>
+        <ol>
+            <li>Open chrome dev tools then check the failing request in the Network Tab</li>
+            <li>Examine the request URL - which api endpoint was requested. Is it correct</li>
+            <li>Reproduce the problem in Postman</li>
+        </ol>
+        <p style="font-weight: bold;">Following is a stack trace - the first few lines will tell you which line of code caused the error.</p>
+        <code class="mt-5" style="background-color: whitesmoke;">{{error.details}}</code>
+    </ng-container>  
+</div>

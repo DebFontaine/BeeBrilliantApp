@@ -1,8 +1,8 @@
-﻿namespace AuthorizationAPI;
+﻿using Microsoft.AspNetCore.Identity;
 
-public class AppUser
+namespace AuthorizationAPI;
+
+public class AppUser : IdentityUser<int>
 {
-    public int Id { get; set; }
-    public string UserName { get; set; }
-
+    public ICollection<AppUserRole> UserRoles {get; set;}
 }

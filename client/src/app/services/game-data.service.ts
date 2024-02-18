@@ -6,6 +6,7 @@ export interface GameData {
   type: number;
   title: string;
   level: string;
+  category: string;
   data: object;
 }
 
@@ -95,6 +96,7 @@ export class GameDataService {
           type: 1,
           title: fillinDataInstances[i].title,
           level: fillinDataInstances[i].level,
+          category: "Spelling",
           data: fillinDataInstances[i]
       };
       gameDataArray.push(gameDataObj);

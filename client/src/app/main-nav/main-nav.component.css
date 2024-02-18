@@ -31,7 +31,11 @@
  font-weight: 200;
  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
  color:indigo;
+ padding-left: 5px;
 }
+.toolbar-top {
+  background-color:gold
+ }
 
 .logo-container {
   display: flex;
@@ -63,4 +67,25 @@
 
 .layout-main {
   flex: 1 1 auto;
+}
+.login-container {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /*This will push the login container to the far right */
+}
+
+.login-field {
+  margin-right: 10px; /* Add some spacing between the input fields */
+  border-radius: 10px; /* Set the border-radius for rounded corners */
+  justify-content: center;
+  border-width: 0cap;
+  font-size: medium;
+  padding: 1cap;
+}
+
+.login-welcome {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /*This will push the login container to the far right */
+  color:indigo;
 }
