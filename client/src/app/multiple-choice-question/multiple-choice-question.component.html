@@ -1,0 +1,30 @@
+<div>
+    <mat-card class="question-card">
+        <mat-card-header>
+            <mat-card-title>{{title}}</mat-card-title>
+            <mat-card-subtitle>{{level}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="imageData">
+        <mat-card-content>
+        <div class="question">{{ question }}</div>
+        <div *ngIf="!error" class="options">
+            <div class="option" *ngFor="let option of options" [class.selected]="isOptionSelected(option.id)"
+                [class.correct]="isAnswerCorrect(option.id)" [class.incorrect]="isAnswerIncorrect(option.id)"
+                (click)="selectOption(option.id)">
+                {{ option.text }}
+                <span class="icon" *ngIf="isAnswerCorrect(option.id)">✔️</span>
+                <span class="icon" *ngIf="isAnswerIncorrect(option.id)">❌</span>
+            </div>
+        </div> 
+        <div *ngIf="error" class="options">
+            <div class="option" *ngFor="let option of options" [class.selected]="isOptionSelected(option.id)"
+                [class.correct]="isAnswerCorrect(option.id)" [class.incorrect]="isAnswerIncorrect(option.id)"
+                (click)="selectOption(option.id)">
+                {{ option.text }}
+                <span class="icon" *ngIf="option.id == correctChoice">✔️</span>
+                <span class="icon" *ngIf="option.id != correctChoice">❌</span>
+            </div>
+        </div> 
+    </mat-card-content>
+    </mat-card>
+</div>

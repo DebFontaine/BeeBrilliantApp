@@ -20,6 +20,10 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { HasRoleDirective } from './directives/has-role.directive';
+import { TestComponent } from './test/test.component';
+import { MultipleChoiceQuestionComponent } from './multiple-choice-question/multiple-choice-question.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { QuizResultComponent } from './quiz-result/quiz-result.component';
 
 
 
@@ -38,7 +42,11 @@ import { HasRoleDirective } from './directives/has-role.directive';
     CustomSnackbarComponent,
     NotFoundComponent,
     ServerErrorComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    TestComponent,
+    MultipleChoiceQuestionComponent,
+    ConfirmDialogComponent,
+    QuizResultComponent
   ],
   imports: [
     BrowserModule,

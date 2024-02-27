@@ -14,13 +14,21 @@ export class HasRoleDirective{
       private accountService: AccountService) {
       this.accountService.currentUser$.pipe(take(1)).subscribe({
         next: user => {
-          if(user) this.user = user
+          if(user) {
+            this.user = user;
+            console.log("roles", user.roles)
+          }
+          else
+          {
+            console.log("no user")
+          }
         }
       })
    }
 
    ngOnInit(){
-      if(this.user.roles.some(r =>this.appHasRole.includes(r))){
+      console.log("checking roles", this.user?.roles);
+      if( this.user?.roles.some(r =>this.appHasRole.includes(r))){
         this.viewContainerRef.createEmbeddedView(this.templateRef);
       }
       else {

@@ -30,6 +30,10 @@ export class GameScoreboardComponent {
   {
     this.sendMessage("replay");
   }
+  viewReport()
+  {
+    this.sendMessage("report");
+  }
   sendMessage(message : string) {
     console.log("sending message");
     this.messageEvent.emit(message);

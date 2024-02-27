@@ -1,20 +1,36 @@
 
 <div class="container-horiz">
-    <div class="question-container">
-    <div *ngIf="gameDatas">
-        <fillin-question [gameData]="gameDatas[currentQuestionIndex]" (messageEvent)="receiveMessage($event)"></fillin-question>
+    <div *ngIf="quizData && !reportDisplayed" class="question-container" [ngSwitch]="quizData[currentQuestionIndex].type">
+      <ng-container *ngSwitchCase="1">
+        <fillin-question [quizData]="quizData[currentQuestionIndex]" (messageEvent)="receiveMessage($event)"></fillin-question>
+      </ng-container>
+      <ng-container *ngSwitchCase="2">
+        <multiple-choice-question [quizData]="quizData[currentQuestionIndex]" (messageEvent)="receiveMessage($event)"></multiple-choice-question>
+      </ng-container>
     </div>
+    <div class="scoreboard-container"> 
+      <div>
+        <game-scoreboard [correct]="numCorrect" [incorrect]="numIncorrect" [total]="totalQuestions" (messageEvent)="receiveMessage($event)"></game-scoreboard>
+      </div>
     </div>
-    <div class="scoreboard-container">
-        <div>
-            <game-scoreboard [correct]="numCorrect" [incorrect]="numIncorrect" [total]="totalQuestions" (messageEvent)="receiveMessage($event)"></game-scoreboard>
-        </div>
+    <div *ngIf="reportDisplayed">
+      <mat-accordion>
+        <mat-expansion-panel expanded="true" hideToggle="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+            </mat-panel-title>
+            <mat-panel-description>     
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <quiz-result [quizResultStr]="quizResult" [score]="score"></quiz-result>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
     <div class="button-container">
-        <button mat-fab extended (click)="nextQuestion()" [disabled]="!enableNext" color="primary"><mat-icon>forward</mat-icon>Next</button>
-        <button mat-fab extended (click)="pauseGame()" color="warn"><mat-icon>close-small</mat-icon>Quit</button>
+      <button mat-fab extended (click)="nextQuestion()" [disabled]="!enableNext" color="primary"><mat-icon>forward</mat-icon>Next</button>
+      <button mat-fab extended (click)="exit()" color="warn"><mat-icon>close-small</mat-icon>Exit</button>
     </div>
-</div>
+  </div>
 
 
-
+ <!--  <div><span>{{quizResult}}</span></div> -->

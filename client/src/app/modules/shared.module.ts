@@ -15,6 +15,11 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 
@@ -37,7 +42,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     MatRadioModule,
     MatInputModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatBadgeModule,
+    MatChipsModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule
+
   ],
   exports: [
     CommonModule,
@@ -56,7 +67,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     MatRadioModule,
     MatInputModule,
-    MatSnackBarModule   
+    MatSnackBarModule,
+    MatBadgeModule,
+    MatChipsModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule
   ]
 })
 export class SharedModule { }

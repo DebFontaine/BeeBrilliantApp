@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AuthorizationAPI;
@@ -10,10 +11,12 @@ public class TokenService : ITokenService
 {
     private readonly SymmetricSecurityKey _key;
     private readonly UserManager<AppUser> _userManager;
-    public TokenService(IConfiguration config, UserManager<AppUser> userManager)
+    private readonly JwtOptions _jwtOptions;
+    public TokenService(IConfiguration config, UserManager<AppUser> userManager, IOptions<JwtOptions> jwtOptions)
     {
         _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         _userManager = userManager;
+        _jwtOptions = jwtOptions.Value;
     }
     public async Task<string> CreateToken(AppUser user)
     {
@@ -30,6 +33,8 @@ public class TokenService : ITokenService
         var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
+            Audience = _jwtOptions.Audience,
+            Issuer = _jwtOptions.Issuer,
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.Now.AddDays(7),
             SigningCredentials = creds

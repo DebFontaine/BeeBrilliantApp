@@ -1,13 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { FillinData } from '../fillin-question/fillin-question.component';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Quiz, QuizDto } from '../models/gametypes';
+import { PaginatedResult } from '../models/pagination';
 
-export interface GameData {
+export interface QuizData {
   type: number;
   title: string;
   level: string;
   category: string;
+  summary: string;
   data: object;
+}
+
+export class UserParams   {
+  pageNumber: number = 1;
+  itemsPerPage: number = 10;
+  category: string = "";
+  level: string = "";
 }
 
 @Injectable({
@@ -15,23 +26,70 @@ export interface GameData {
 })
 
 
-export class GameDataService {
+export class QuizDataService {
+  paginatedResult: PaginatedResult<QuizDto[]> = new PaginatedResult<QuizDto[]>
+  
+  private apiUrl = 'https://localhost:5003/api/quiz';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getGameData(): Observable<GameData[]> {
-    // Implement fetching logic here (e.g., HTTP request)
-    // For demonstration, return a mock array of GameData objects
-    return of(this.generateFillInGameData());
+
+
+  getQuiz(id: number): Observable<Quiz> {
+    console.log("getQuiz",`${this.apiUrl}/${id}`)
+    return this.http.get<Quiz>(`${this.apiUrl}/${id}`);
   }
-  createGameData()
-  {
 
+  getAllQuizzes(){
+    return this.http.get<QuizDto[]>(`${this.apiUrl}`);
+  }
+
+  getPagedQuizzes(userParams:UserParams)
+  {
+    let params = new HttpParams();
+    if(userParams)
+    {
+      if(userParams.pageNumber && userParams.itemsPerPage)
+      {
+          params = params.append('pageNumber', userParams.pageNumber);
+          params = params.append('pageSize', userParams.itemsPerPage);
+      }
+      if(userParams.category && userParams.category != "")
+      {
+          params = params.append('category', userParams.category);
+      }
+      if(userParams.level && userParams.level != "")
+      {
+          params = params.append('level', userParams.level);
+      }
+    }
+
+    return this.http.get<QuizDto[]>(`${this.apiUrl}`, {observe: 'response', params})
+      .pipe(
+        map(response => {
+          if(response.body){
+            this.paginatedResult.result = response.body;
+          }
+          const pagination = response.headers.get('Pagination');
+          if(pagination){
+            this.paginatedResult.pagination = JSON.parse(pagination);
+          }
+          console.log("results", this.paginatedResult);
+          return this.paginatedResult;
+        })
+    )
+  }
+
+
+
+  getGameData(): Observable<QuizData[]> {
+  
+    return of(this.generateFillInGameData());
   }
 
   generateFillInGameData()
   {
-    const gameDataArray: GameData[] = [];
+    const gameDataArray: QuizData[] = [];
     const fillinDataInstances: FillinData[] = [
       {
         title: "Spelling",
@@ -91,12 +149,13 @@ export class GameDataService {
     ];
 
     for (let i = 0; i < fillinDataInstances.length; i++) {
-      const gameDataObj: GameData = {
+      const gameDataObj: QuizData = {
         
           type: 1,
           title: fillinDataInstances[i].title,
           level: fillinDataInstances[i].level,
           category: "Spelling",
+          summary: "This is the summary",
           data: fillinDataInstances[i]
       };
       gameDataArray.push(gameDataObj);

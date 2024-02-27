@@ -2,3 +2,21 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.field {
+    background-color: white !important;
+    border-radius: 30px;
+    margin-right: 10px; /* Add some spacing between the input fields */
+    border-width: 0cap;
+    font-size: medium;
+    padding: 1cap;
+}
+.select-panel{
+    background-color: white !important;
+}
+.mat-expansion-panel-content > .mat-expansion-panel-body
+ {
+   display: block;
+   text-align: center;
+   height: 100vh;
+    }

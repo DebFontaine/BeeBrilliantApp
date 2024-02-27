@@ -1,0 +1,90 @@
+.quizzes-panel {
+    margin: 0 auto;
+    margin-top: 10px;
+    background-color: white;
+}
+
+.quiz-card {
+    max-width: 250px;
+    min-width: 250px;
+    height: auto;
+    margin-right:5px;
+}
+
+.quiz-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.card-header-image {
+    background-size: cover;
+}
+
+.card-image-container {
+    height: 150px;
+    /* Adjust the height of the image container */
+    overflow: hidden;
+    /* Hide any overflow */
+}
+
+.card-image {
+    width: 100%;
+    /* Ensure the image fills the width of the container */
+    height: auto;
+    /* Maintain the aspect ratio */
+}
+
+.quiz-description {
+    padding-top: 1cap;
+    padding-bottom: 1cap;
+}
+
+.mat-grid-tile {
+    margin: 2px;
+    /* Add margin between grid tiles */
+}
+.header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* Adjust the gap between elements as needed */
+}
+.category-chip{ 
+    background-color:rgb(192, 152, 230);
+}
+.level-chip{
+    background-color: rgb(230, 159, 202);
+
+}
+
+mat-paginator {
+    display: flex;
+    justify-content: center; /* Horizontally center the paginator */
+    font-size:medium;
+    /* color:blueviolet; */
+    box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.3);
+  }
+
+.spinner-container mat-spinner {
+    margin: 130px auto 0 auto;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px;
+    border-color: gray;
+    gap: 20px;
+    background-color: white;
+}
+
+.no-quizzes-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    font-size: large;
+    margin-top:30px;
+}
+
+

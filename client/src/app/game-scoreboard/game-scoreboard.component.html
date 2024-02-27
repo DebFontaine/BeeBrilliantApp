@@ -23,7 +23,7 @@
         </mat-card-content>
         <mat-card-footer *ngIf="quizComplete()" class="button-container">
             <div>
-                <button mat-raised-button color="primary" [disabled]="!quizComplete()">View Report</button>
+                <button mat-raised-button color="primary" [disabled]="!quizComplete()" (click)="viewReport()">View Report</button>
                 <button mat-raised-button color="accent" [disabled]="!quizComplete()" (click)="replay()">Replay</button>
             </div>
         </mat-card-footer>

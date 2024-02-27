@@ -1,0 +1,28 @@
+<div *ngIf="quizResult" class="container">
+    <h1>{{ quizResult.title }}</h1>
+    <p><strong>Category:</strong> {{ quizResult.category }}</p>
+    <p><strong>Level:</strong> {{ quizResult.level }}</p>
+    <p><strong>Description:</strong> {{ quizResult.description }}</p>
+    <p><strong>Score:</strong> {{ score }}</p>
+
+    <table class="question-table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Type</th>
+                <th>Question Text</th>
+                <th>Selected Answer</th>
+                <th>Correct Answer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let question of quizResult.questions; let i = index" [ngClass]="{'correct': isCorrect(question), 'incorrect': !isCorrect(question)}">
+                <td>{{ i + 1 }}</td>
+                <td>{{ getQuestionType(question) }}</td>
+                <td>{{ getQuestionText(question) }}</td>
+                <td>{{ getSelectedAnswerText(question) }}</td>
+                <td>{{ getCorrectAnswerText(question) }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

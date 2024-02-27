@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, SimpleChanges, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, of } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -20,6 +20,7 @@ export class MainNavComponent {
   durationInSeconds = 5;
   model: any = {};
   currentUser$: Observable<User | null> = of(null);
+  showAdmin = false;
   private breakpointObserver = inject(BreakpointObserver);
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -47,6 +48,7 @@ export class MainNavComponent {
       this.accountService.login(this.model).subscribe({
         next: response => {
           console.log(response);
+          this.showAdmin = true;
           this.router.navigateByUrl('/home')
         },
         error: error => {
@@ -61,7 +63,7 @@ export class MainNavComponent {
     this.accountService.logout();
     this.router.navigateByUrl('/home')
   }
-
+ 
   displayError(message: string) {
     this.toast.openFromComponent(CustomSnackbarComponent, {
       duration: 5000, // Adjust as needed
@@ -70,5 +72,15 @@ export class MainNavComponent {
         dismiss: () => this.toast.dismiss(),
       },
     });
+  }
+
+  displayAdmin(user: User | null)
+  {
+    if(!user) return false;
+    console.log("user",user)
+    if(user.roles.includes('Admin') || user.roles.includes('Moderator')){
+      return true;
+    }
+    return false;
   }
 }

@@ -1,0 +1,42 @@
+.question {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .options {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .option {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+  
+  .option:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .option.selected {
+    background-color: #e6f7ff;
+  }
+  
+  .option.correct {
+    color: green;
+  }
+  
+  .option.incorrect {
+    color: red;
+  }
+  
+  .icon {
+    margin-left: 5px;
+  }
+
+  .question-card {
+    max-width: 400px;
+  }
+  

@@ -1,0 +1,315 @@
+{
+    "id": 9,
+    "type": 1,
+    "title": "European Capital Cities",
+    "category": "Geography",
+    "description": "Multiple Choice Quiz of the some European countries",
+    "photoUrl": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708723302/world-153534_1280_ciuckw.png",
+    "level": "Middle School",
+    "questions": [
+        {
+            "type": 2,
+            "category": "Geography",
+            "level": "Middle School",
+            "title": "European Capitals",
+            "summary": "Select the correct answer",
+            "data": {
+                "imageData": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708705720/flag-160361_1280_g1sqbu.png",
+                "question": "What is the capital of France?",
+                "correctAnswerId": 2,
+                "options": [
+                    {
+                        "id": 1,
+                        "text": "London"
+                    },
+                    {
+                        "id": 2,
+                        "text": "Paris"
+                    },
+                    {
+                        "id": 3,
+                        "text": "Berlin"
+                    },
+                    {
+                        "id": 4,
+                        "text": "Madrid"
+                    }
+                ],
+                "selectedAnswerId": 2
+            }
+        },
+        {
+            "type": 2,
+            "category": "Geography",
+            "level": "Middle School",
+            "title": "European Capitals",
+            "summary": "Select the correct answer",
+            "data": {
+                "imageData": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708723302/world-153534_1280_ciuckw.png",
+                "question": "What is the capital of Belgium?",
+                "correctAnswerId": 4,
+                "options": [
+                    {
+                        "id": 1,
+                        "text": "Helsinki"
+                    },
+                    {
+                        "id": 2,
+                        "text": "Paris"
+                    },
+                    {
+                        "id": 3,
+                        "text": "Vienna"
+                    },
+                    {
+                        "id": 4,
+                        "text": "Brussels"
+                    }
+                ],
+                "selectedAnswerId": 3
+            }
+        },
+        {
+            "type": 1,
+            "category": "Spelling",
+            "level": "K-1",
+            "title": "Spell the word",
+            "summary": "Fill in the letters to spell the pictured word.",
+            "data": {
+                "word": "pan",
+                "imageData": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708630761/pan-155140_1280_sodz2b.png",
+                "letters": [
+                    {
+                        "letter": "p",
+                        "userInput": "p"
+                    },
+                    {
+                        "letter": "a",
+                        "userInput": "a"
+                    },
+                    {
+                        "letter": "n",
+                        "userInput": "n"
+                    }
+                ]
+            }
+        },
+        {
+            "type": 2,
+            "category": "Geography",
+            "level": "Middle School",
+            "title": "European Capitals",
+            "summary": "Select the correct answer",
+            "data": {
+                "imageData": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708722880/scandinavia-23575_1280_hyltl0.png",
+                "question": "What is the capital of Denmark?",
+                "correctAnswerId": 2,
+                "options": [
+                    {
+                        "id": 1,
+                        "text": "Helsinki"
+                    },
+                    {
+                        "id": 2,
+                        "text": "Copenhagen"
+                    },
+                    {
+                        "id": 3,
+                        "text": "Vienna"
+                    },
+                    {
+                        "id": 4,
+                        "text": "Berlin"
+                    }
+                ],
+                "selectedAnswerId": 2
+            }
+        },
+        {
+            "type": 2,
+            "category": "Geography",
+            "level": "Middle School",
+            "title": "European Capitals",
+            "summary": "Select the correct answer",
+            "data": {
+                "imageData": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708723024/poland-1758844_1280_ost8t7.png",
+                "question": "What is the capital of Poland?",
+                "correctAnswerId": 1,
+                "options": [
+                    {
+                        "id": 1,
+                        "text": "Warsaw"
+                    },
+                    {
+                        "id": 2,
+                        "text": "Zagreb"
+                    },
+                    {
+                        "id": 3,
+                        "text": "Vienna"
+                    },
+                    {
+                        "id": 4,
+                        "text": "Lisbon"
+                    }
+                ],
+                "selectedAnswerId": 1
+            }
+        },
+        {
+            "type": 2,
+            "category": "Geography",
+            "level": "Middle School",
+            "title": "European Capitals",
+            "summary": "Select the correct answer",
+            "data": {
+                "imageData": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708723302/world-153534_1280_ciuckw.png",
+                "question": "What is the capital of the Czech Republic?",
+                "correctAnswerId": 3,
+                "options": [
+                    {
+                        "id": 1,
+                        "text": "Warsaw"
+                    },
+                    {
+                        "id": 2,
+                        "text": "Zagreb"
+                    },
+                    {
+                        "id": 3,
+                        "text": "Prague"
+                    },
+                    {
+                        "id": 4,
+                        "text": "Minsk"
+                    }
+                ],
+                "selectedAnswerId": 3
+            }
+        },
+        {
+            "type": 2,
+            "category": "Geography",
+            "level": "Middle School",
+            "title": "European Capitals",
+            "summary": "Select the correct answer",
+            "data": {
+                "imageData": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708723302/world-153534_1280_ciuckw.png",
+                "question": "What is the capital of Ukraine?",
+                "correctAnswerId": 4,
+                "options": [
+                    {
+                        "id": 1,
+                        "text": "Berlin"
+                    },
+                    {
+                        "id": 2,
+                        "text": "Dublin"
+                    },
+                    {
+                        "id": 3,
+                        "text": "Sarajevo"
+                    },
+                    {
+                        "id": 4,
+                        "text": "Kyiv"
+                    }
+                ],
+                "selectedAnswerId": 4
+            }
+        },
+        {
+            "type": 2,
+            "category": "Geography",
+            "level": "Middle School",
+            "title": "European Capitals",
+            "summary": "Select the correct answer",
+            "data": {
+                "imageData": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708723302/world-153534_1280_ciuckw.png",
+                "question": "What is the capital of the Republic of Ireland?",
+                "correctAnswerId": 4,
+                "options": [
+                    {
+                        "id": 1,
+                        "text": "Sarajevo"
+                    },
+                    {
+                        "id": 2,
+                        "text": "Manchester"
+                    },
+                    {
+                        "id": 3,
+                        "text": "Belfast"
+                    },
+                    {
+                        "id": 4,
+                        "text": "Dublin"
+                    }
+                ],
+                "selectedAnswerId": 4
+            }
+        },
+        {
+            "type": 2,
+            "category": "Geography",
+            "level": "Middle School",
+            "title": "European Capitals",
+            "summary": "Select the correct answer",
+            "data": {
+                "imageData": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708723302/world-153534_1280_ciuckw.png",
+                "question": "What is the capital of Iceland?",
+                "correctAnswerId": 1,
+                "options": [
+                    {
+                        "id": 1,
+                        "text": "Reykjavik"
+                    },
+                    {
+                        "id": 2,
+                        "text": "Selfoss"
+                    },
+                    {
+                        "id": 3,
+                        "text": "Minsk"
+                    },
+                    {
+                        "id": 4,
+                        "text": "Prague"
+                    }
+                ],
+                "selectedAnswerId": 1
+            }
+        },
+        {
+            "type": 2,
+            "category": "Geography",
+            "level": "Middle School",
+            "title": "European Capitals",
+            "summary": "Select the correct answer",
+            "data": {
+                "imageData": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708723302/world-153534_1280_ciuckw.png",
+                "question": "What is the capital of England?",
+                "correctAnswerId": 4,
+                "options": [
+                    {
+                        "id": 1,
+                        "text": "Manchester"
+                    },
+                    {
+                        "id": 2,
+                        "text": "Leeds"
+                    },
+                    {
+                        "id": 3,
+                        "text": "Rome"
+                    },
+                    {
+                        "id": 4,
+                        "text": "London"
+                    }
+                ],
+                "selectedAnswerId": 4
+            }
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, Output, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
-import { GameData } from '../services/game-data.service';
+import { QuizData } from '../services/game-data.service';
 
 export interface FillinData {
   title: string;
@@ -20,7 +20,7 @@ export class FillInQuestionComponent {
   showStaticText = false;
   success: boolean = false;
   @ViewChildren('inputElement') inputElements: QueryList<ElementRef> | undefined;
-  @Input() gameData: GameData | undefined;
+  @Input() quizData: QuizData | undefined;
   @Output() messageEvent = new EventEmitter<string>();
 
   currentQuestion: FillinData | undefined;
@@ -35,13 +35,12 @@ export class FillInQuestionComponent {
 
   ngOnInit()
   {
-    this.convertGameData();
+    this.convertQuizData();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    //console.log('Input changed:', changes['gameData'].currentValue);
     this.reset();
-    this.convertGameData();
+    this.convertQuizData();
   }
 
   reset()
@@ -51,14 +50,14 @@ export class FillInQuestionComponent {
     this.success = false;
   }
 
-  convertGameData()
+  convertQuizData()
   {
-    if(this.gameData)
+    if(this.quizData)
     {
-      this.currentQuestion = this.gameData.data as FillinData;
+      this.currentQuestion = this.quizData.data as FillinData;
       console.log("current Question", this.currentQuestion);
-      this.title = this.currentQuestion.title;
-      this.level = this.currentQuestion.level;
+      this.title = this.quizData.title ?? this.quizData.category;
+      this.level = this.quizData.level;
       this.word = this.currentQuestion.word;
       this.imageData = this.currentQuestion.imageData;
       this.letters = this.currentQuestion.letters;

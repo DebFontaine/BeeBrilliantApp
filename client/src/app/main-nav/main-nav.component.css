@@ -14,6 +14,7 @@
   position: sticky;
   top: 0;
   z-index: 1;
+  color: indigo;
 }
 .custom-avatar {
   width: 50px;
@@ -89,3 +90,11 @@
   margin-left: auto; /*This will push the login container to the far right */
   color:indigo;
 }
+
+.custom-icon {
+  margin-right: 5px;
+  color:indigo;
+  opacity: 80%;
+  text-align: center;
+}
+

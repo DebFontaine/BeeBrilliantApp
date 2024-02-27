@@ -18,9 +18,10 @@ export class AccountService {
       map((response:User) => {
         const user = response;
         if(user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
+          console.log("current user",user)
+          this.setCurrentUser(user);
         }
+        return user;
       })
     )
   }
@@ -43,7 +44,7 @@ export class AccountService {
     user.roles = [];
     const roles = this.getDecodedToken(user.token).role;
     Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
-
+    console.log("roles", roles)
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }

@@ -1,1 +1,73 @@
-<p>quizzes works!</p>
+<div class="quizzes-panel">
+    <div class="spinner-container" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div class="container">
+        <mat-form-field appearance="outline">
+            <mat-label>Filter Category</mat-label>
+            <mat-select  (selectionChange)="onCategorySelectionChange($event)">
+              <mat-option value="spelling">Spelling</mat-option>
+              <mat-option value="history">US History</mat-option>
+              <mat-option value="world history">World History</mat-option>
+              <mat-option value="geography">Geography</mat-option>
+              <mat-option value="vocabulary">Vocabulary</mat-option>
+              <mat-option value="math">Math</mat-option>
+              <mat-option value="science">Science</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Filter Level</mat-label>
+            <mat-select (selectionChange)="onLevelSelectionChange($event)">
+              <mat-option value="k-1">K-1</mat-option>
+              <mat-option value="elementary">Elementary</mat-option>
+              <mat-option value="middle school">Middle School</mat-option>
+              <mat-option value="high school">High School</mat-option>
+              <mat-option value="adult">Adult</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="getPagedQuizzes()">
+            Apply Filters
+          </button>
+          <button mat-raised-button color="accent" (click)="resetFilters()">
+            Reset Filters
+          </button>
+    </div>
+    <ng-container *ngIf="!quizzes || quizzes.length == 0">
+        <span class="no-quizzes-message">No quizzes found</span>
+    </ng-container>
+    <mat-grid-list [cols]="cols" [rowHeight]="rowHeight" [ngClass]="{'handset-portrait':  handsetPortrait}">
+        <mat-grid-tile *ngFor="let quiz of quizzes">
+            <mat-card class="quiz-card mat-elevation-z20">
+                <mat-card-header>
+                    <div class="header-content">
+                        <mat-card-title>{{quiz.title}}</mat-card-title>
+                        <div>
+                            <mat-chip-set>
+                                <mat-chip [ngStyle]="{'background-color': 'rgb(192, 152, 230)','color': 'white' }"
+                                    class="category-chip" *ngIf="quiz.category != null">{{quiz.category}}</mat-chip>
+                                <mat-chip [ngStyle]="{'background-color': 'rgb(230, 159, 202)', 'color': 'white' }"
+                                    class="level-chip">{{quiz.level}}</mat-chip>
+                            </mat-chip-set>
+                            <mat-card-subtitle>{{quiz.questionCount}} questions</mat-card-subtitle>
+                        </div>
+                    </div>
+                </mat-card-header>
+                <div class="card-image-container">
+                    <img class="card-image" src="{{ quiz.photoUrl }}">
+                </div>
+                <mat-card-content class="quiz-description">
+                    <p>{{quiz.description}}</p>
+                </mat-card-content>
+                <mat-card-actions class="quiz-actions">
+                    <button mat-raised-button color="primary" [routerLink]="['/quiz', quiz.id]">
+                        Take Quiz
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<div *ngIf="pagination">
+    <mat-paginator *ngIf="pagination" class="centered-mat-paginator" #paginator (page)="handlePageEvent($event)" [length]="pagination.totalItems"
+    [pageSize]="pagination.itemsPerPage" [showFirstLastButtons]="true" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+</div>

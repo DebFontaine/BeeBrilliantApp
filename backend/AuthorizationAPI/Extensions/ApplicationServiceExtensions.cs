@@ -13,9 +13,12 @@ public static class ApplicationServiceExtensions
 
         });
         services.AddCors();
+        var section = config.GetSection("ApiSettings:JwtOptions");
+        services.Configure<JwtOptions>(section);
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
         return services;
     }
