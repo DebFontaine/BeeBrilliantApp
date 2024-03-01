@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, Output, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
-import { QuizData } from '../services/game-data.service';
+import { QuizData } from '../services/quiz-data.service';
 
 export interface FillinData {
   title: string;

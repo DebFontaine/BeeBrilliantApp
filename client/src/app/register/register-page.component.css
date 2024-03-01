@@ -1,0 +1,33 @@
+.container-vert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:100%;
+}
+.button-container {
+    width: 100%; /* Calculate width with margins included */
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    align-items: center; /* Center the buttons vertically */
+    padding: 10px; /* Adjust padding as needed */
+    margin-top: 10px;
+  }
+
+  .invite{
+    padding-top: 2cap;
+    color: indigo;
+  }
+
+  .centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .avatar-image {
+    width: 300px;
+    height:300px;
+    object-fit: cover; /* Ensures the image covers the entire space of the avatar */
+    border-radius: 50%;
+  }

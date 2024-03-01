@@ -11,6 +11,7 @@ export class GameScoreboardComponent {
   @Input() incorrect: number = 0;
   @Input() total: number = 10;
   @Output() messageEvent = new EventEmitter<string>();
+  reportDisplayed: boolean = false;
 
   ngOnChanges(changes: SimpleChanges) {
     console.log('Input changed:', changes['correct']?.currentValue);
@@ -28,11 +29,16 @@ export class GameScoreboardComponent {
 
   replay()
   {
+    this.reportDisplayed = false;
     this.sendMessage("replay");
   }
   viewReport()
   {
-    this.sendMessage("report");
+    if(!this.reportDisplayed)
+    {
+      this.reportDisplayed = true;
+      this.sendMessage("report");
+    }
   }
   sendMessage(message : string) {
     console.log("sending message");

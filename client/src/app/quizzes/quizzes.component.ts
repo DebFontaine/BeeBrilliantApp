@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { QuizDto } from '../models/gametypes';
-import { QuizDataService, UserParams } from '../services/game-data.service';
+import { QuizDataService, UserParams } from '../services/quiz-data.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Pagination } from '../models/pagination';
 import { PageEvent } from '@angular/material/paginator';
-import { catchError, finalize, tap, throwError } from 'rxjs';
-import { MatSelectChange } from '@angular/material/select';
+import { Observable, catchError, finalize, map, of, switchMap, take, tap, throwError } from 'rxjs';
+import { Member, User } from '../models/user';
+import { AccountService } from '../services/account.service';
+import { CategoryLevelFilterData } from '../category-level-filter/category-level-filter.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-quizzes',
@@ -27,12 +30,39 @@ export class QuizzesComponent {
   searchCategory = "";
   searchLevel = "";
   userParams: UserParams = new UserParams();
+  user: User  | null = null;
 
   pageEvent: PageEvent | undefined;
+  currentUser$: Observable<User | null> = of(null);
+  member: Member | null = null;
 
-  constructor(private quizService: QuizDataService, private responsive: BreakpointObserver) { }
+
+
+  constructor(private quizService: QuizDataService, private responsive: BreakpointObserver, 
+    private accountService: AccountService, private toast: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.currentUser$ = this.accountService.currentUser$;
+    this.currentUser$.pipe(
+      take(1),
+      switchMap(user => {
+        if (user) {
+          this.user = user;
+          return this.accountService.getMember(user.username);
+        } else {
+          return of(null);
+        }
+      })
+    ).subscribe((member: Member | null) => {
+      if (member) {
+        this.member = member;
+      }
+    });
+    this.getPagedQuizzes();
+    this.setupReactiveDisplay(); 
+  }
+
+  private setupReactiveDisplay() {
     this.responsive.observe([
       Breakpoints.WebLandscape,
       Breakpoints.TabletPortrait,
@@ -64,45 +94,47 @@ export class QuizzesComponent {
           this.cols = 1;
         }
         else if (breakpoints[Breakpoints.TabletLandscape]) {
-          this.cols = 3; // Set column count, ensuring it's at least 1
+          this.cols = 3;
         }
 
       });
-
-    this.getPagedQuizzes();
   }
+
   calculateCols() {
     const viewportWidth = window.innerWidth; // Get viewport width
     const columnCount = Math.floor(viewportWidth / 500); // Calculate column count based on viewport width (adjust 200 as needed)
     this.cols = columnCount > 0 ? columnCount : 1;
   }
-  resetFilters() {
+  resetFilters(text:string) {
     this.searchCategory = "";
     this.searchLevel = "";
     this.pageNumber = 0;
     this.pageSize = 10;
     this.getPagedQuizzes();
   }
+  getFilteredQuizzes(data: CategoryLevelFilterData)
+  {
+    this.searchCategory = data.selectedCategoryOption;
+    this.searchLevel = data.selectedLevelOption;
+    this.getPagedQuizzes()
+  }
 
   getPagedQuizzes() {
-    console.log("Getting quizzes")
     this.populateUserParams();
-    console.log("userparams", this.userParams)
     this.loading = true;
+
     this.quizService.getPagedQuizzes(this.userParams).pipe(
       tap(response => {
-        console.log(response.result, response.pagination)
         if (response.result && response.pagination) {
           this.quizzes = response.result;
-          console.log(this.quizzes)
           this.pagination = response.pagination;
           this.length = this.pagination.totalItems;
         }
       }),
       catchError(err => {
         console.log("Error loading lessons", err);
-        alert("Error loading lessons.");
-        return throwError(err);
+        this.showToastMessage('Error loading results. Please try again.', 3);
+        return throwError(() => new Error(err));
 
       }),
       finalize(() => this.loading = false)
@@ -118,6 +150,7 @@ export class QuizzesComponent {
   }
 
   handlePageEvent(e: PageEvent) {
+    console.log("e", e)
     this.pageEvent = e;
     this.length = e.length;
     this.pageSize = e.pageSize;
@@ -130,12 +163,10 @@ export class QuizzesComponent {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
   }
-  onCategorySelectionChange(event: MatSelectChange) {
-    this.searchCategory = event.value;
-    console.log('Selected value:', this.searchCategory);
-  }
-  onLevelSelectionChange(event: MatSelectChange) {
-    this.searchLevel = event.value;
-    console.log('Selected value:', this.searchLevel);
-  }
+  private showToastMessage(message: string, duration: number) {
+    this.toast.open(message, 'Dismiss', {
+      duration: duration * 1000
+    });
+}
+
 }

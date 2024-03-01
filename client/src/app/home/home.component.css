@@ -13,21 +13,72 @@
     margin-top: 10px;
   }
 
-  .invite{
+.invite{
     padding-top: 2cap;
     color: indigo;
   }
 
-  .centered-content {
+.centered-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  .avatar-image {
+.avatar-image {
     width: 300px;
     height:300px;
     object-fit: cover; /* Ensures the image covers the entire space of the avatar */
     border-radius: 50%;
   }
+
+.outline-input {
+    background-color: white; /* White background */
+    border: 1px solid #ccc; /* Grey outline */
+    border-radius: 5px; /* Curved corners */
+    padding: 8px; /* Add padding for better appearance */
+    box-shadow: none !important; /* Remove the default box shadow */
+    outline: none; /* Remove the default outline */
+  }
+.container {
+    margin-top: 10px;
+    font-size: small;
+    border-radius: 10px;
+}
+.container-horiz {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width:100%;
+  overflow-x: auto;
+  padding-bottom: 30px;
+}
+.table-full-width{
+  margin: 0 auto; /* Center the table horizontally */
+}
+.filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px;
+  border-color: gray;
+  gap: 20px;
+  background-color: white;
+}
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 12px;
+
+}
+
+h2 {
+  align-self: center;
+  color:indigo;
+}
+.action-button-container button {
+  margin-right: 1px; /* Adjust the margin as needed */
+}

@@ -1,8 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Question, QuestionDataDto, Quiz } from '../models/gametypes';
 import { MultiChoiceData } from '../multiple-choice-question/multiple-choice-question.component';
 import * as quizData from '../../assets/quizresult.json';
 import { FillinData } from '../fillin-question/fillin-question.component';
+import { ResultDataService } from '../services/result-data.service';
+import { AddResultsDto, ResultsDto } from '../models/results';
 
 @Component({
   selector: 'quiz-result',
@@ -13,6 +15,11 @@ export class QuizResultComponent {
   @Input() quizResult: Quiz | undefined;
   @Input() score: string = "";
   @Input() quizResultStr: string = "";
+  @Input() showSave: boolean = true;
+  @Output() messageEvent = new EventEmitter<string>();
+  resultsSaved: boolean = false;
+
+  constructor(private resultService: ResultDataService){}
 
   ngOnInit() {
 
@@ -43,9 +50,7 @@ export class QuizResultComponent {
     }
     return "Error";
   }
-
-
-
+  
   getCorrectAnswerText(question: Question): string {
 
     if (question && question.type === 1) {
@@ -76,8 +81,16 @@ export class QuizResultComponent {
   isCorrect(question: Question): boolean {
       return this.getCorrectAnswerText(question) === this.getSelectedAnswerText(question);
   }
-  getScore()
-  {
 
+  saveResults(){
+    this.resultsSaved = true;
+    this.sendMessage("save_report")
+  }
+  exit(){
+    this.sendMessage("close_report")
+  }
+  sendMessage(message : string) {
+    console.log("sending message");
+    this.messageEvent.emit(message);
   }
 }

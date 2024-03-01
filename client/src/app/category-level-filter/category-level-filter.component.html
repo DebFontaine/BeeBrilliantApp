@@ -1,0 +1,36 @@
+<div class="filter-container">
+    <mat-form-field *ngIf="showTextFilter" appearance="outline">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Filter Category</mat-label>
+        <mat-select [(value)]="selectedCategoryOption" (selectionChange)="onCategorySelectionChange($event)">
+            <mat-option>None</mat-option>
+            <mat-option value="spelling">Spelling</mat-option>
+            <mat-option value="history">US History</mat-option>
+            <mat-option value="world history">World History</mat-option>
+            <mat-option value="geography">Geography</mat-option>
+            <mat-option value="vocabulary">Vocabulary</mat-option>
+            <mat-option value="math">Math</mat-option>
+            <mat-option value="science">Science</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Filter Level</mat-label>
+        <mat-select [(value)]="selectedLevelOption" (selectionChange)="onLevelSelectionChange($event)">
+            <mat-option>None</mat-option>
+            <mat-option value="k-1">K-1</mat-option>
+            <mat-option value="elementary">Elementary</mat-option>
+            <mat-option value="middle school">Middle School</mat-option>
+            <mat-option value="high school">High School</mat-option>
+            <mat-option value="adult">Adult</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="applyFilters()">
+        Apply Filters
+    </button>
+    <button mat-raised-button color="accent" [disabled]="!filterApplied" (click)="resetFilters()">
+        Reset Filters
+    </button>
+</div>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
-import { User } from '../models/user';
+import { Member, User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +48,9 @@ export class AccountService {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
+  getMember(username: string){
+    return this.http.get<Member>(this.baseUrl + 'users/' + username);
+ }
 
   logout() {
     localStorage.removeItem('user');

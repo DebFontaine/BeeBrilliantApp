@@ -476,3 +476,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 backend/Authorization/AuthorizationAPI/appsettings.json
+client/ssl/localhost-key.pem
+client/ssl/localhost.pem

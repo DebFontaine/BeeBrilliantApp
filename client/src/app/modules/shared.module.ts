@@ -20,6 +20,10 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTableModule} from '@angular/material/table';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSortModule} from '@angular/material/sort';
+
 
 
 
@@ -47,8 +51,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatChipsModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatExpansionModule
-
+    MatExpansionModule,
+    MatTableModule,
+    MatTooltipModule,
+    MatSortModule
   ],
   exports: [
     CommonModule,
@@ -72,7 +78,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatChipsModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule,
+    MatTooltipModule,
+    MatSortModule
   ]
 })
 export class SharedModule { }

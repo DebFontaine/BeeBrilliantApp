@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { QuizDataService } from '../services/game-data.service';
+import { QuizDataService } from '../services/quiz-data.service';
 import { FillInQuestionDataDto, Quiz } from '../models/gametypes';
 
 @Component({

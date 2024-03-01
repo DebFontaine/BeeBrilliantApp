@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { QuizData } from '../services/game-data.service';
+import { QuizData } from '../services/quiz-data.service';
 import { ChoicesDto, Question } from '../models/gametypes';
 
 export interface MultiChoiceData {

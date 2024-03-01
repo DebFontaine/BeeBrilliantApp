@@ -22,7 +22,7 @@
             <mat-panel-description>     
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <quiz-result [quizResultStr]="quizResult" [score]="score"></quiz-result>
+          <quiz-result [quizResultStr]="quizResult" [score]="score" (messageEvent)="receiveMessage($event)"></quiz-result>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
@@ -33,4 +33,4 @@
   </div>
 
 
- <!--  <div><span>{{quizResult}}</span></div> -->
+<!-- <div><span>{{quizResult}}</span></div> -->

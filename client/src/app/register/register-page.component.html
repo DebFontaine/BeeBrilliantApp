@@ -1,0 +1,17 @@
+<div class="container-vert">
+    <div *ngIf="!(this.currentUser$ | async) && !registerMode" class="container-vert">
+        <h1 class="invite">Take quizzes, bee brilliant!</h1>
+        <img src="./assets/images/bee.png" alt="Avatar" class="avatar-image">
+        <p class="invite">Register now or login to create and take fun learning quizzes!</p>
+        <div class="button-container">
+            <button mat-fab extended (click)="registerMode=true"><mat-icon>forward</mat-icon>Register</button>
+        </div>
+    </div>
+    <div *ngIf="registerMode">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+            </div>
+        </div>
+    </div>
+</div>

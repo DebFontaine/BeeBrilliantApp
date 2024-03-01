@@ -13,16 +13,20 @@ import { adminGuard } from "./guards/admin.guard";
 import { TestComponent } from "./test/test.component";
 import { quizResolver } from "./services/quiz.resolver";
 import { QuizResultComponent } from "./quiz-result/quiz-result.component";
+import { RegisterPageComponent } from "./register/register-page.component";
+import { memberResolver } from "./services/member.resolver";
 
 const routes: Routes = [
   {
     path: '', component: MainNavComponent, runGuardsAndResolvers: 'always',
     children: [
+      { path: 'register', component: RegisterPageComponent },
       { path: 'home', component: HomeComponent },
       { path: 'quizzes', component: QuizzesComponent, canActivate: [authGuard] },
       {
-        path: 'quiz/:id', component: QuizEngineComponent, resolve: {
-          quiz: quizResolver
+        path: 'quiz/:id/:username', component: QuizEngineComponent, resolve: {
+          quiz: quizResolver,
+          member: memberResolver
         }, canActivate: [authGuard]
       },
       { path: 'test', component: QuizResultComponent },

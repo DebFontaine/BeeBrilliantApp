@@ -1,10 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { QuizDataService as QuizDataService } from '../services/game-data.service';
+import { QuizDataService as QuizDataService } from '../services/quiz-data.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Question, Quiz } from '../models/gametypes';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../confirm-dialog/confirm-dialog.component';
+import { AddResultsDto } from '../models/results';
+import { ResultDataService } from '../services/result-data.service';
+import { AccountService } from '../services/account.service';
+import { Member } from '../models/user';
 
 
 @Component({
@@ -28,119 +32,144 @@ export class QuizEngineComponent {
   quizResult: string = "";
   score: string = "";
   reportDisplayed = false;
+  reportSaved: boolean = false;
+  member: Member | undefined;
 
-  constructor(private quizDataService: QuizDataService, public dialog: MatDialog, 
+  constructor(private accountService: AccountService, private quizDataService: QuizDataService, private resultService: ResultDataService, public dialog: MatDialog,
     private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+
     this.quiz = this.route.snapshot.data["quiz"];
-    console.log("Init", this.quiz?.questions)
-    this.copyQuestions(); 
+    this.member = this.route.snapshot.data["member"];
+    console.log("ngOnInit", this.quiz, this.member)
+    this.copyQuestions();
   }
-  copyQuestions()
-  {
-    this.quizCopy  = JSON.parse(JSON.stringify(this.quiz));
-    if(this.quizCopy)
-    {
+
+  copyQuestions() {
+    this.quizCopy = JSON.parse(JSON.stringify(this.quiz));
+    if (this.quizCopy) {
       this.quizData = this.quizCopy.questions;
       this.totalQuestions = this.quizData.length;
       console.log(this.quiz)
     }
   }
-  getQuizDataById(id:number)
-  {
-    this.quizDataService.getQuiz(id)
-    .subscribe(data => {
-      this.quiz = data;
-      this.quizData = this.quiz.questions;
-      this.totalQuestions = this.quizData.length;
-      console.log(this.quiz)
-    }); 
-  }
 
   nextQuestion(): void {
     if (this.currentQuestionIndex < this.quizData.length - 1) {
       this.currentQuestionIndex++;
-      console.log("engine", this.quizData[this.currentQuestionIndex])
       this.enableNext = false;
     }
   }
 
   pauseGame(): void {
-    // Pause game timer
+    // Pause game timer TODO
   }
 
   exit() {
-    const message = `You will lose any unsaved results. Are you sure you want to exit?`;
+    if (!this.reportSaved) {
+      const message = `You will lose any unsaved results. Are you sure you want to exit?`;
 
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+      const dialogData = new ConfirmDialogModel("Confirm Action", message);
 
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: "400px",
-      data: dialogData
-    });
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        maxWidth: "400px",
+        data: dialogData
+      });
 
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      if(dialogResult == true)
-        this.router.navigateByUrl('/home')
-    });
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if (dialogResult == true)
+          this.router.navigateByUrl('/home')
+      });
+    }
+    this.router.navigateByUrl('/home')
   }
 
-  reset()
-  {
-    console.log("reset")
+  reset() {
     this.reportDisplayed = false;
-    this.unsubscribe();
+
     this.currentQuestionIndex = 0;
     this.receivedMessage = '';
     this.numCorrect = 0;
     this.numIncorrect = 0;
     this.enableNext = false;
     this.copyQuestions();
+    this.unsubscribe();
     console.log("original question", this.quiz!.questions)
   }
 
   receiveMessage(message: string) {
+    console.log("message received", message)
     this.receivedMessage = message;
-    if(message == "correct")
-    {
-      this.numCorrect++;
-      this.shouldEnableNext();
+    switch (message) {
+      case "correct":
+        this.handleCorrect();
+        break;
+      case "incorrect":
+        this.handleIncorrect();
+        break;
+      case "replay":
+        this.reset();
+        break;
+      case "report":
+        this.displayReport();
+        break;
+      case "save_report":
+        this.saveReport();
+        break;
+      case "close_report":
+        this.reportDisplayed = false;
+        break;
     }
-    else if(message == "incorrect")
-    {
-      this.numIncorrect++;
-      this.shouldEnableNext();
-    }
-    else if(message == "replay")
-      this.reset();
-    else if(message == "report")
-      this.displayReport();
   }
-  displayReport()
-  {
+
+  handleCorrect() {
+    this.numCorrect++;
+    this.shouldEnableNext();
+  }
+
+  handleIncorrect() {
+    this.numIncorrect++;
+    this.shouldEnableNext();
+  }
+  displayReport() {
     this.reportDisplayed = true;
     this.quizResult = JSON.stringify(this.quizCopy);
     this.score = ((this.numCorrect / this.quizData.length) * 100).toFixed(2) + '%';
   }
+  saveReport() {
+    const results: AddResultsDto = {
+      userId: this.member!.id,
+      username: this.member!.userName,
+      quizName: this.quizCopy!.title,
+      quizId: this.quizCopy!.id,
+      quizResultStr: JSON.stringify(this.quizCopy),
+      score: ((this.numCorrect / this.quizData.length) * 100).toFixed(2) + '%',
+      category: this.quizCopy!.category,
+      level: this.quizCopy!.level,
+      dateTaken: new Date()
+    };
 
-  shouldEnableNext()
-  {
-    if(this.numCorrect + this.numIncorrect < this.quizData.length)
+    this.resultService.saveResult(results).subscribe(result => {
+      console.log(result);
+      this.reportSaved = true;
+    });
+  }
+
+  shouldEnableNext() {
+    if (this.numCorrect + this.numIncorrect < this.quizData.length)
       this.enableNext = true;
   }
 
-  unsubscribe()
-  {
+  unsubscribe() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
 
-  
   ngOnDestroy() {
     this.unsubscribe();
   }
- 
+
 
 }

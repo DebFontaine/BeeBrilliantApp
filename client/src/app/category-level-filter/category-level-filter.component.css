@@ -1,0 +1,9 @@
+.filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px;
+    border-color: gray;
+    gap: 20px;
+    background-color: white;
+  }

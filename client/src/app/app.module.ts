@@ -24,6 +24,8 @@ import { TestComponent } from './test/test.component';
 import { MultipleChoiceQuestionComponent } from './multiple-choice-question/multiple-choice-question.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { QuizResultComponent } from './quiz-result/quiz-result.component';
+import { RegisterPageComponent } from './register/register-page.component';
+import { CategoryLevelFilterComponent } from './category-level-filter/category-level-filter.component';
 
 
 
@@ -46,7 +48,9 @@ import { QuizResultComponent } from './quiz-result/quiz-result.component';
     TestComponent,
     MultipleChoiceQuestionComponent,
     ConfirmDialogComponent,
-    QuizResultComponent
+    QuizResultComponent,
+    RegisterPageComponent,
+    CategoryLevelFilterComponent
   ],
   imports: [
     BrowserModule,

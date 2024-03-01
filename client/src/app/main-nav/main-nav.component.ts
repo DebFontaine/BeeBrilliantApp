@@ -61,7 +61,7 @@ export class MainNavComponent {
   logout()
   {
     this.accountService.logout();
-    this.router.navigateByUrl('/home')
+    this.router.navigateByUrl('/register')
   }
  
   displayError(message: string) {

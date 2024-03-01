@@ -2,6 +2,7 @@ import { Component, EventEmitter, NgModule, Output, inject } from '@angular/core
 
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
 
 
@@ -24,7 +25,7 @@ export class RegisterComponent {
     confirmpassword: [null, Validators.required]
   });
 
-  constructor(private accountService : AccountService){}
+  constructor(private accountService : AccountService, private router: Router){}
 
   onSubmit(): void {
     console.log(this.registerForm);
@@ -34,6 +35,7 @@ export class RegisterComponent {
       next: response => {
         console.log(response);
         this.cancel();
+        this.router.navigateByUrl('/home');
       },
       error: error => console.log(error)
     })
