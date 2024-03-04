@@ -1,16 +1,18 @@
 <div class="container-horiz">
+    <div *ngIf="(this.currentUser$ | async) && !resultDisplayed" class="container">
         <mat-accordion>
             <mat-expansion-panel expanded="true">
                 <mat-expansion-panel-header>
                     <mat-panel-title><mat-icon>dashboard</mat-icon>My Dashboard</mat-panel-title>
                 </mat-expansion-panel-header>
                 <div *ngIf="(this.currentUser$ | async)" class="container-horiz-with-margin">
-                <category-pie-chart [quizResults]="quizResults"></category-pie-chart>
-                <quiz-bar-chart [quizResults]="quizResults"></quiz-bar-chart>
-                <trophy-case></trophy-case>
-            </div>
+                    <category-pie-chart [quizResults]="quizResults"></category-pie-chart>
+                    <quiz-bar-chart [quizResults]="quizResults"></quiz-bar-chart>
+                    <trophy-case></trophy-case>
+                </div>
             </mat-expansion-panel>
         </mat-accordion>
+    </div>
 </div>
 
 <div class="container-horiz">

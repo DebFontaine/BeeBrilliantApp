@@ -1,4 +1,4 @@
-import { CanActivateFn } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { AccountService } from '../services/account.service';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,6 +7,7 @@ import { User } from '../models/user';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const accountService = inject(AccountService);
+  const router = inject(Router);
   const toast = inject(MatSnackBar);
   
   return accountService.currentUser$.pipe(
@@ -17,9 +18,7 @@ export const authGuard: CanActivateFn = (route, state) => {
         return true;
       }
       else {
-        toast.open('you shall not pass',undefined,{
-          duration: 5 * 1000
-        });
+        router.navigate(['/register']);
         return false;
       }
     })

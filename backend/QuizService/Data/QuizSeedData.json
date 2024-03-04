@@ -1,0 +1,42 @@
+[
+    {
+        "type": 1,
+        "title": "Short A",
+        "category": "Spelling",
+        "description": "Short a spelling quiz",
+        "photoUrl": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708556642/quiz-default_qsuqqb.png",
+        "level": "K-1",
+        "questions": [1,2,3,4,5,6,7]
+
+    },
+    {
+        "id": 7,
+        "type": 1,
+        "title": "Simple Spelling",
+        "category": "Spelling",
+        "description": "Simple Spelling - Short A",
+        "photoUrl": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708653407/students-7282947_1280_nttabv.png",
+        "level": "K-1",
+        "questions": [1,4]
+    },
+    {
+        "id": 9,
+        "type": 1,
+        "title": "European Capital Cities",
+        "category": "Geography",
+        "description": "Multiple Choice Quiz of the some European countries",
+        "photoUrl": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708723302/world-153534_1280_ciuckw.png",
+        "level": "Middle School",
+        "questions": [8,9,10,11,12,13,14,15,16]
+    },
+    {
+        "id": 11,
+        "type": 1,
+        "title": "Capitals of Europe",
+        "category": "Geography",
+        "description": "Multiple choice",
+        "photoUrl": "https://res.cloudinary.com/dngjhgdql/image/upload/v1708556642/quiz-default_qsuqqb.png",
+        "level": "Middle School",
+        "questions": [11,15]
+    }
+]

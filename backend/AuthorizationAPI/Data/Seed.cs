@@ -28,6 +28,14 @@ public class Seed
 
         await userManager.CreateAsync(admin, "Pa$$w0rd");
         await userManager.AddToRolesAsync(admin, new[] { "Admin", "Creator" });
+
+        var testUser = new AppUser
+        {
+            UserName = "testUser",
+        };
+
+        await userManager.CreateAsync(testUser, "Pa$$w0rd");
+        await userManager.AddToRolesAsync(testUser, new[] { "Member"});
     }
 
 }

@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { FillInQuestionComponent } from "./fillin-question/fillin-question.component";
 import { MainNavComponent } from "./main-nav/main-nav.component";
 import { HomeComponent } from "./home/home.component";
 import { QuizzesComponent } from "./quizzes/quizzes.component";
@@ -10,7 +9,6 @@ import { authGuard } from "./guards/auth.guard";
 import { NotFoundComponent } from "./errors/not-found/not-found.component";
 import { ServerErrorComponent } from "./errors/server-error/server-error.component";
 import { adminGuard } from "./guards/admin.guard";
-import { TestComponent } from "./test/test.component";
 import { quizResolver } from "./services/quiz.resolver";
 import { QuizResultComponent } from "./quiz-result/quiz-result.component";
 import { RegisterPageComponent } from "./register/register-page.component";
@@ -20,8 +18,9 @@ const routes: Routes = [
   {
     path: '', component: MainNavComponent, runGuardsAndResolvers: 'always',
     children: [
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'register', component: RegisterPageComponent },
-      { path: 'home', component: HomeComponent },
+      { path: 'home', component: HomeComponent, canActivate: [authGuard]},
       { path: 'quizzes', component: QuizzesComponent, canActivate: [authGuard] },
       {
         path: 'quiz/:id/:username', component: QuizEngineComponent, resolve: {
