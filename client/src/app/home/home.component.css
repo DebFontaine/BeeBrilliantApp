@@ -52,7 +52,35 @@
   justify-content: center;
   width:100%;
   overflow-x: auto;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.container-horiz-with-margin {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width:100%;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin-right:5px;
+}
+.container-horiz-space-between {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items:stretch;
+  width:99%;
+  padding-bottom: 5px;
+  padding-top: 20px;
+  border: 1px solid lightgray;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  overflow-x: auto;
 }
 .table-full-width{
   margin: 0 auto; /* Center the table horizontally */
@@ -81,4 +109,24 @@ h2 {
 }
 .action-button-container button {
   margin-right: 1px; /* Adjust the margin as needed */
+}
+.four {
+  flex-grow: 4; /* default 0 */
+}
+.three {
+  flex-grow: 4; /* default 0 */
+}
+.one {
+  flex-grow: 1; /* default 0 */
+}
+
+mat-panel-title {
+  font-size: large; /* Adjust the font size as needed */
+  color: indigo; /* Use the primary theme color */
+  display: flex;
+  align-items: center;
+}
+
+mat-panel-title mat-icon {
+  margin-right: 8px; /* Adjust the margin as needed */
 }

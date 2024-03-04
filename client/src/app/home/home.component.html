@@ -1,66 +1,88 @@
 <div class="container-horiz">
+        <mat-accordion>
+            <mat-expansion-panel expanded="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title><mat-icon>dashboard</mat-icon>My Dashboard</mat-panel-title>
+                </mat-expansion-panel-header>
+                <div *ngIf="(this.currentUser$ | async)" class="container-horiz-with-margin">
+                <category-pie-chart [quizResults]="quizResults"></category-pie-chart>
+                <quiz-bar-chart [quizResults]="quizResults"></quiz-bar-chart>
+                <trophy-case></trophy-case>
+            </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+</div>
+
+<div class="container-horiz">
     <div *ngIf="(this.currentUser$ | async) && !resultDisplayed" class="container">
-        <h2>My Quiz Results</h2>
-        <category-level-filter (applyTextFilterEvent)="applyTextFilter($event)"
-            (applyFiltersEvent)="getFilteredResults($event)"
-            (resetFilterEvent)="resetFilters($event)"></category-level-filter>
-        <table mat-table [dataSource]="dataSource" (matSortChange)="sortData($event)"
-            class="table-full-width mat-elevation-z8" matSort #matSort>
+        <mat-accordion>
+            <mat-expansion-panel expanded="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title><mat-icon>assignment</mat-icon>My Quiz Results</mat-panel-title>
+                </mat-expansion-panel-header>
+                <category-level-filter (applyTextFilterEvent)="applyTextFilter($event)"
+                    (applyFiltersEvent)="getFilteredResults($event)"
+                    (resetFilterEvent)="resetFilters($event)"></category-level-filter>
+                <table mat-table [dataSource]="dataSource" (matSortChange)="sortData($event)"
+                    class="table-full-width mat-elevation-z8" matSort #matSort>
 
-            <ng-container matColumnDef="quizName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Quiz Name"> Quiz
-                    Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.quizName}} </td>
-            </ng-container>
+                    <ng-container matColumnDef="quizName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Quiz Name">
+                            Quiz
+                            Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.quizName}} </td>
+                    </ng-container>
 
-            <ng-container matColumnDef="category">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
-                <td mat-cell *matCellDef="let element"> {{element.category}} </td>
-            </ng-container>
+                    <ng-container matColumnDef="category">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
+                        <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                    </ng-container>
 
-            <ng-container matColumnDef="level">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Level</th>
-                <td mat-cell *matCellDef="let element"> {{element.level}} </td>
-            </ng-container>
+                    <ng-container matColumnDef="level">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Level</th>
+                        <td mat-cell *matCellDef="let element"> {{element.level}} </td>
+                    </ng-container>
 
-            <ng-container matColumnDef="score">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Score </th>
-                <td mat-cell *matCellDef="let element"> {{element.score}} </td>
-            </ng-container>
-            <ng-container matColumnDef="dateTaken">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Taken </th>
-                <td mat-cell *matCellDef="let element"> {{element.dateTaken + 'Z' | date: 'medium'}} </td>
-            </ng-container>
-            <ng-container matColumnDef="viewResult" stickyEnd>
-                <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-                <td mat-cell *matCellDef="let element" class="action-button-container">
-                    <button mat-icon-button (click)="displayResult(element)" matTooltip="View Results">
-                        <mat-icon color="primary">summarize</mat-icon>
-                    </button>
-                    <button mat-icon-button [routerLink]="['/quiz', element.quizId, user?.username]"
-                        matTooltip="Take Quiz">
-                        <mat-icon color="accent">quiz</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
-
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            <tr class="mat-row" *matNoDataRow>
-                <ng-container *ngIf="!dataSource.filter || dataSource.filter.trim().length === 0">
-                    <td class="mat-cell" colspan="7">No quiz results available</td>
-                </ng-container>
-                <ng-container *ngIf="dataSource.filter && dataSource.filter.trim().length > 0">
-                    <td class="mat-cell" colspan="7">No quiz results matching the filter "{{dataSource.filter}}"</td>
-                </ng-container>
-            </tr>
-        </table>
-        <div *ngIf="pagination">
-            <mat-paginator *ngIf="pagination" class="centered-mat-paginator mat-elevation-z8" #paginator
-                (page)="handlePageEvent($event)" [length]="pagination.totalItems" [pageSize]="pagination.itemsPerPage"
-                [showFirstLastButtons]="true" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
-        </div>
+                    <ng-container matColumnDef="score">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Score </th>
+                        <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="dateTaken">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Taken </th>
+                        <td mat-cell *matCellDef="let element"> {{element.dateTaken + 'Z' | date: 'medium'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="viewResult" stickyEnd>
+                        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                        <td mat-cell *matCellDef="let element" class="action-button-container">
+                            <button mat-icon-button (click)="displayResult(element)" matTooltip="View Results">
+                                <mat-icon color="primary">summarize</mat-icon>
+                            </button>
+                            <button mat-icon-button [routerLink]="['/quiz', element.quizId, user?.username]"
+                                matTooltip="Take Quiz">
+                                <mat-icon color="accent">quiz</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr class="mat-row" *matNoDataRow>
+                        <ng-container *ngIf="!dataSource.filter || dataSource.filter.trim().length === 0">
+                            <td class="mat-cell" colspan="7">No quiz results available</td>
+                        </ng-container>
+                        <ng-container *ngIf="dataSource.filter && dataSource.filter.trim().length > 0">
+                            <td class="mat-cell" colspan="7">No quiz results matching the filter "{{dataSource.filter}}"
+                            </td>
+                        </ng-container>
+                    </tr>
+                </table>
+                <div *ngIf="pagination">
+                    <mat-paginator *ngIf="pagination" class="centered-mat-paginator mat-elevation-z8" #paginator
+                        (page)="handlePageEvent($event)" [length]="pagination.totalItems"
+                        [pageSize]="pagination.itemsPerPage" [showFirstLastButtons]="true"
+                        [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
     </div>
     <div *ngIf="resultDisplayed">
         <mat-accordion>

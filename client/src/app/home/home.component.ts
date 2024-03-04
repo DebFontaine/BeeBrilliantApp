@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Output, ViewChild } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { Observable, catchError, finalize, of, switchMap, take, tap, throwError } from 'rxjs';
 import { Member, User } from '../models/user';
@@ -11,6 +11,9 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryLevelFilterData } from '../category-level-filter/category-level-filter.component';
+import { ChartOptions } from 'chart.js';
+import { EventEmitter } from '@angular/core';
+import { DataService } from '../services/data.service';
 
 
 const EMPTY_DATA: ResultsDto[] = [
@@ -24,6 +27,9 @@ const EMPTY_DATA: ResultsDto[] = [
 })
 export class HomeComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
+  @Output() dataReady: EventEmitter<any> = new EventEmitter<any>();
+
+
 
   currentUser$: Observable<User | null> = of(null);
   user: User | undefined;
@@ -52,7 +58,7 @@ export class HomeComponent implements AfterViewInit {
   sortedData: ResultsDto[] = [];
 
   constructor(private accountService: AccountService, private resultService: ResultDataService,
-    private toast: MatSnackBar) { }
+    private toast: MatSnackBar, private dataService: DataService) { }
 
   ngOnInit() {
     this.currentUser$ = this.accountService.currentUser$;
@@ -70,8 +76,10 @@ export class HomeComponent implements AfterViewInit {
       if (member) {
         this.member = member;
         this.getPagedResults(this.member.id);
+        //this.pieChartLabels = this.getPieChartLabels();
       }
     });
+
   }
 
   ngAfterViewInit() {
@@ -105,8 +113,9 @@ export class HomeComponent implements AfterViewInit {
           this.quizResults = response.result;
           this.pagination = response.pagination;
           this.length = this.pagination.totalItems;
-          this.dataSource = new MatTableDataSource(this.quizResults);
+          this.dataSource = new MatTableDataSource(this.quizResults)     
         }
+        this.notifySibling();
       }),
       catchError(err => {
         this.showToastMessage('Error loading results. Please try again.', 3);
@@ -158,6 +167,11 @@ export class HomeComponent implements AfterViewInit {
       return;
     }
   }
+  notifySibling() {
+    this.dataReady.emit();
+    this.dataService.notifyDataReady(this.quizResults);
+    
+  }
 
   private populateUserParams() {
     this.userParams = new UserParams();
@@ -178,7 +192,7 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
-  
+
 
 
 }

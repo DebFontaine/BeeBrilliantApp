@@ -10,6 +10,9 @@ public class AutomapperProfiles : Profile
       CreateMap<Result, ReturnResultDto>();
       CreateMap<ResultDto, Result>();
       CreateMap<ResultUpdateDto, Result>();
+      CreateMap<Result, ResultSummary>()
+         .ForMember(dest => dest.ResultId, opt => opt.MapFrom(src => src.Id))
+         .ForMember(dest => dest.Id, opt => opt.Ignore()); 
 
 
 

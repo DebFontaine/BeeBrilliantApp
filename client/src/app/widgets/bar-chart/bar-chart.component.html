@@ -1,0 +1,18 @@
+
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>My Average Score Per Category</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div *ngIf="quizResults">
+            <canvas baseChart
+            [data]="barChartData"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [type]="'bar'">
+        </canvas>
+        </div>
+    </mat-card-content>
+  </mat-card>

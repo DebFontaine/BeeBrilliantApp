@@ -26,6 +26,10 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { QuizResultComponent } from './quiz-result/quiz-result.component';
 import { RegisterPageComponent } from './register/register-page.component';
 import { CategoryLevelFilterComponent } from './category-level-filter/category-level-filter.component';
+import { NgChartsModule } from 'ng2-charts';
+import { PieChartComponent } from './widgets/pie-chart/pie-chart.component';
+import { BarChartComponent } from './widgets/bar-chart/bar-chart.component';
+import { TrophyCaseComponent } from './widgets/trophy-case/trophy-case.component';
 
 
 
@@ -50,7 +54,10 @@ import { CategoryLevelFilterComponent } from './category-level-filter/category-l
     ConfirmDialogComponent,
     QuizResultComponent,
     RegisterPageComponent,
-    CategoryLevelFilterComponent
+    CategoryLevelFilterComponent,
+    PieChartComponent,
+    BarChartComponent,
+    TrophyCaseComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +67,8 @@ import { CategoryLevelFilterComponent } from './category-level-filter/category-l
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    NgChartsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

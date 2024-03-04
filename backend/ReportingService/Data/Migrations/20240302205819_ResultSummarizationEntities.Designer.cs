@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReportingService;
 
@@ -10,9 +11,11 @@ using ReportingService;
 namespace ReportingService.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240302205819_ResultSummarizationEntities")]
+    partial class ResultSummarizationEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.16");
@@ -55,8 +58,8 @@ namespace ReportingService.Data.Migrations
                     b.Property<DateTime>("DateAwarded")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Level")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Level")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("QuizId")
                         .HasColumnType("INTEGER");

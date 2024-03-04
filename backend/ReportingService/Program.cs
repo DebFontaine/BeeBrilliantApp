@@ -1,3 +1,4 @@
+using Contracts;
 using Microsoft.EntityFrameworkCore;
 using ReportingService;
 
@@ -13,6 +14,10 @@ builder.Services.AddDbContext<DataContext>(opt =>
 builder.Services.AddCors();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IResultsRepository, ResultsRepository>();
+builder.Services.AddScoped<IResultSummaryRepository, ResultSummaryRepository>();
+builder.Services.AddScoped<IMessageBus, MessageBus>();
+builder.Services.AddScoped<IAwardsUpdater, AwardsUpdater>();
+builder.Services.AddSingleton<IAzureServiceBusConsumer, ReportDataQueueServiceBusConsumer>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -21,6 +26,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAppAuthetication(builder.Configuration);
 builder.Services.AddAuthorization();
+
+builder.Services.AddHostedService<SummarizationService>();
 
 var app = builder.Build();
 
