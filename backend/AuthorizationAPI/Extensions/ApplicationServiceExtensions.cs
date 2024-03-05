@@ -9,7 +9,7 @@ public static class ApplicationServiceExtensions
     {
         services.AddDbContext<DataContext>(opt =>
         {
-            opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            opt.UseMySQL(config.GetConnectionString("DefaultConnection"));
 
         });
         services.AddCors();
