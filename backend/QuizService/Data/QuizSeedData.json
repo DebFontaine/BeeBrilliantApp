@@ -10,7 +10,6 @@
 
     },
     {
-        "id": 7,
         "type": 1,
         "title": "Simple Spelling",
         "category": "Spelling",
@@ -20,7 +19,6 @@
         "questions": [1,4]
     },
     {
-        "id": 9,
         "type": 1,
         "title": "European Capital Cities",
         "category": "Geography",
@@ -30,7 +28,6 @@
         "questions": [8,9,10,11,12,13,14,15,16]
     },
     {
-        "id": 11,
         "type": 1,
         "title": "Capitals of Europe",
         "category": "Geography",

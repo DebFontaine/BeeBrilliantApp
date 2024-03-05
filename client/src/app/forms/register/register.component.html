@@ -45,7 +45,7 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
-            <input matInput placeholder="Password" formControlName="password" class="login-field">
+            <input matInput type="password" placeholder="Password" formControlName="password" class="login-field">
             <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
               Password is <strong>required</strong>
             </mat-error>
@@ -55,9 +55,10 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
-            <input matInput placeholder="Confirm Password" formControlName="confirmpassword" class="login-field">
-            <mat-error *ngIf="registerForm.controls['confirmpassword'].hasError('required')">
-              Confirm Password is <strong>required</strong>
+            <input matInput type="password" placeholder="Confirm Password" formControlName="confirmpassword" class="login-field">
+            <mat-error *ngIf="(registerForm.controls['password'].touched && registerForm.controls['confirmpassword'].hasError('required')) || 
+                (registerForm.controls['password'].touched && registerForm.controls['confirmpassword'].hasError('notMatching'))">
+              Confirm Password is <strong>required and must match the password field</strong>
             </mat-error>
           </mat-form-field>
         </div>

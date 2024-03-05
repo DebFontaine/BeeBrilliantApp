@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<DataContext>(opt =>
 {
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 });
 
@@ -38,7 +38,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().
-    WithOrigins("https://localhost:4200","http://localhost:4200","https://localhost:4300","http://localhost:4300"));
+    WithOrigins("https://localhost:4200","http://localhost:4200","https://beebrilliant.azurewebsites.net"));
 
 app.UseHttpsRedirection();
 

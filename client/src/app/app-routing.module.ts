@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'register', component: RegisterPageComponent },
       { path: 'home', component: HomeComponent, canActivate: [authGuard]},
-      { path: 'quizzes', component: QuizzesComponent, canActivate: [authGuard] },
+      { path: 'quiz', component: QuizzesComponent, canActivate: [authGuard] },
       {
         path: 'quiz/:id/:username', component: QuizEngineComponent, resolve: {
           quiz: quizResolver,
@@ -32,9 +32,9 @@ const routes: Routes = [
       { path: 'admin', component: AdminComponent, canActivate: [authGuard, adminGuard] },
       { path: 'not-found', component: NotFoundComponent },
       { path: 'server-error', component: ServerErrorComponent },
-      { path: '**', component: NotFoundComponent, pathMatch: 'full' }
     ]
-  }
+  },
+  { path: '**', component: NotFoundComponent, pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, NgModule, Output, inject } from '@angular/core';
 
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
@@ -14,18 +14,32 @@ import { AccountService } from 'src/app/services/account.service';
 export class RegisterComponent {
   model: any = {};
   @Output() cancelRegister = new EventEmitter();
-
+  registerForm: FormGroup = new FormGroup({});
   private fb = inject(FormBuilder);
-  registerForm = this.fb.group({
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    emailaddress: [null, Validators.required],
-    username: [null, Validators.required],
-    password: [null, Validators.required],
-    confirmpassword: [null, Validators.required]
-  });
+  
+
 
   constructor(private accountService : AccountService, private router: Router){}
+
+  ngOnInit(){
+    this.initializeForm();
+  }
+
+
+  initializeForm()
+  {
+    this.registerForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      emailaddress: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required,Validators.minLength(6)],
+      confirmpassword: ['', Validators.required, this.matchValues('password') ]
+    });
+    this.registerForm.controls['password'].valueChanges.subscribe({
+      next: () => this.registerForm.controls['confirmPassword'].updateValueAndValidity()
+    });
+  }
 
   onSubmit(): void {
     console.log(this.registerForm);
@@ -44,5 +58,13 @@ export class RegisterComponent {
   cancel()
   {
     this.cancelRegister.emit(false);
+  }
+  matchValues(matchTo: string): ValidatorFn {
+    return (control: AbstractControl) =>{
+      console.log("control value:", control.value)
+      console.log("Match:", matchTo)
+      return control.value === control.parent?.get(matchTo)?.value ? null : {notMatching: true};
+    }
+    
   }
 }

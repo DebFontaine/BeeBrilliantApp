@@ -3,6 +3,7 @@ import { Observable, map, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Quiz, QuizDto } from '../models/gametypes';
 import { PaginatedResult } from '../models/pagination';
+import { environment } from 'src/environments/environment';
 
 export interface QuizData {
   type: number;
@@ -28,9 +29,15 @@ export class UserParams   {
 export class QuizDataService {
   paginatedResult: PaginatedResult<QuizDto[]> = new PaginatedResult<QuizDto[]>
   
-  private apiUrl = 'https://localhost:5003/api/quiz';
+  //private apiUrl = 'https://localhost:5003/api/quiz';
+  //private apiUrl = 'https://quizservice-appservice.azurewebsites.net/api/quiz';
+  private apiUrl = environment.quizApiUrl + 'quiz';
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient) { 
+    console.log("Environment is production", environment.production);
+    console.log("Url", environment.quizApiUrl);
+  }
 
   getQuiz(id: number): Observable<Quiz> {
     console.log("getQuiz",`${this.apiUrl}/${id}`)

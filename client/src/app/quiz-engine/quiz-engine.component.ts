@@ -82,7 +82,8 @@ export class QuizEngineComponent {
           this.router.navigateByUrl('/home')
       });
     }
-    this.router.navigateByUrl('/home')
+    else
+      this.router.navigateByUrl('/home')
   }
 
   reset() {

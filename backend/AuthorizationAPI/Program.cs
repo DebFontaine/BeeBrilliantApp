@@ -29,7 +29,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().
-    WithOrigins("https://localhost:4200","http://localhost:4200","https://localhost:4300","http://localhost:4300"));
+    WithOrigins("https://localhost:4200","http://localhost:4200","https://beebrilliant.azurewebsites.net"));
 
 app.UseHttpsRedirection();
 

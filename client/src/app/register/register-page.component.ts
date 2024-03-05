@@ -26,5 +26,8 @@ export class RegisterPageComponent {
     console.log("cancelRegister", event)
     this.registerMode = event;
   }
+  displayMessage() {
+    alert("Registration is closed right now. Please try again later.")
+  }
 
 }
