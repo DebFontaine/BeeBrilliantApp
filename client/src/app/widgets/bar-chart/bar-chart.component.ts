@@ -99,8 +99,6 @@ export class BarChartComponent {
     this.quizResults.forEach(result => {
       const dateTakenString = result.dateTaken.toLocaleString().slice(0, 10);
       uniqueDatesSet.add(dateTakenString);
-      console.log("date", dateTakenString);
-      console.log("datetaken", result.dateTaken);
 
       if (!averageScoresMap.has(dateTakenString)) {
         averageScoresMap.set(dateTakenString, new Map<string, { totalScore: number, count: number }>());

@@ -29,8 +29,6 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @Output() dataReady: EventEmitter<any> = new EventEmitter<any>();
 
-
-
   currentUser$: Observable<User | null> = of(null);
   user: User | undefined;
   member: Member | undefined;
@@ -75,8 +73,8 @@ export class HomeComponent implements AfterViewInit {
     ).subscribe(member => {
       if (member) {
         this.member = member;
+        this.notifyMemberReady();
         this.getPagedResults(this.member.id);
-        //this.pieChartLabels = this.getPieChartLabels();
       }
     });
 
@@ -172,6 +170,14 @@ export class HomeComponent implements AfterViewInit {
     this.dataService.notifyDataReady(this.quizResults);
     
   }
+  notifyMemberReady() {
+    if(this.member)
+    {
+      this.dataReady.emit();
+      this.dataService.notifyMemberReady(this.member);
+    }
+  }
+  
 
   private populateUserParams() {
     this.userParams = new UserParams();

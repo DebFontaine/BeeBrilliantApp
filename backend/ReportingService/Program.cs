@@ -14,6 +14,7 @@ builder.Services.AddDbContext<DataContext>(opt =>
 builder.Services.AddCors();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IResultsRepository, ResultsRepository>();
+builder.Services.AddScoped<IAwardsRepository, AwardsRepository>();
 builder.Services.AddScoped<IResultSummaryRepository, ResultSummaryRepository>();
 builder.Services.AddScoped<IMessageBus, MessageBus>();
 builder.Services.AddScoped<IAwardsUpdater, AwardsUpdater>();

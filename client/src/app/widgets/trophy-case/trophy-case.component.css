@@ -1,7 +1,11 @@
+
+mat-card {
+  min-width: 300px;
+}
 .card-header-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+
   }
   
   .card-title {
@@ -15,4 +19,14 @@
     width: 100%; /* Adjust the width of the separator line */
     border-bottom: 1px solid lightgray; /* Style and color of the separator line */
     margin: 1px auto; /* Center the separator horizontally and add margin */
+  }
+
+  mat-card-content {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    padding-top: 5px;
   }

@@ -1,13 +1,22 @@
 <mat-card>
-    <mat-card-header style="text-align:center;">
-    <div style="text-align:center;">
-      <mat-card-title style="text-align:center;">Trophy Case</mat-card-title>
+    <mat-card-header>
+    <div>
+      <mat-card-title>Trophy Case</mat-card-title>
     </div>
     </mat-card-header>
-    <img mat-card-image src="https://res.cloudinary.com/dngjhgdql/image/upload/v1709335181/small_trophy_ieewc5.png" alt="Photo of a Shiba Inu">
+    <ng-container *ngIf="!displayedAwards || displayedAwards.length == 0">
+      <img mat-card-image src="https://res.cloudinary.com/dngjhgdql/image/upload/v1709335181/small_trophy_ieewc5.png" alt="image of trophy">
+    </ng-container>
     <mat-card-content>
+      <ng-container *ngIf="displayedAwards && displayedAwards.length > 0">
+      <div *ngFor="let award of displayedAwards">
+        <img mat-card-image src="{{award.image}}" alt="{{award.award}}" matTooltip="{{award.toolTip}}" width="50px" height="50px">
+      </div>
+      </ng-container>
+      <ng-container *ngIf="!displayedAwards || displayedAwards.length == 0">
       <p>
         Trophies and badges will be displayed here
       </p>
+     </ng-container>
     </mat-card-content>
   </mat-card>
