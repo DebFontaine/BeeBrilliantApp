@@ -1,0 +1,20 @@
+
+    <mat-form-field class="full-width" appearance="outline">
+        <input matInput type={{type}} placeholder={{label}} [class.is-invalid]="control.touched && control.invalid"
+            [formControl]="control" class="login-field">
+        <mat-error class="invalid-feedback" style="color:red" *ngIf="control.touched && control.errors?.['required']">
+            Please enter a {{label}}
+        </mat-error>
+        <mat-error class="invalid-feedback" style="color:red" *ngIf="control.touched && control.errors?.['minlength']">
+            {{label}} must be at least {{control.errors?.['minlength'].requiredLength}} characters
+        </mat-error>
+        <mat-error class="invalid-feedback" style="color:red" *ngIf="control.touched && control.errors?.['maxlength']">
+            {{label}} must be at most {{control.errors?.['maxlength'].requiredLength}} characters
+        </mat-error>
+        <mat-error class="invalid-feedback" style="color:red" *ngIf="control.touched && control.errors?.['notMatching']">
+            {{label}} does not match
+        </mat-error>
+        <mat-error class="invalid-feedback" style="color:red" *ngIf="control.touched && control.errors?.['hasDigitAndUpper']">
+            {{label}} must contain at least one digit and one uppercase letter
+        </mat-error>
+    </mat-form-field>

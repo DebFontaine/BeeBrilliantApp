@@ -6,61 +6,30 @@
     <mat-card-content>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <input matInput placeholder="First name" formControlName="firstName" class="login-field">
-            <mat-error *ngIf="registerForm.controls['firstName'].hasError('required')">
-              First name is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+          <text-input [formControl]="$any(registerForm.controls['firstName'])" [label]="'First name'"></text-input>
         </div>
         <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <input matInput placeholder="Last name" formControlName="lastName" class="login-field">
-            <mat-error *ngIf="registerForm.controls['lastName'].hasError('required')">
-              Last name is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+          <text-input [formControl]="$any(registerForm.controls['lastName'])" [label]="'Last name'"></text-input>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <input matInput placeholder="Email Address" formControlName="emailaddress" class="login-field">
-            <mat-error *ngIf="registerForm.controls['emailaddress'].hasError('required')">
-              Email address is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+          <text-input [formControl]="$any(registerForm.controls['emailaddress'])" [label]="'Email Address'"></text-input>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <input matInput placeholder="Username" formControlName="username" class="login-field">
-            <mat-error *ngIf="registerForm.controls['username'].hasError('required')">
-              Username is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+          <text-input [formControl]="$any(registerForm.controls['username'])" [label]="'Username'"></text-input>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <input matInput type="password" placeholder="Password" formControlName="password" class="login-field">
-            <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
-              Password is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+          <text-input [formControl]="$any(registerForm.controls['password'])" [label]="'Password'" [type]="'password'"></text-input>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <input matInput type="password" placeholder="Confirm Password" formControlName="confirmpassword" class="login-field">
-            <mat-error *ngIf="(registerForm.controls['password'].touched && registerForm.controls['confirmpassword'].hasError('required')) || 
-                (registerForm.controls['password'].touched && registerForm.controls['confirmpassword'].hasError('notMatching'))">
-              Confirm Password is <strong>required and must match the password field</strong>
-            </mat-error>
-          </mat-form-field>
+          <text-input [formControl]="$any(registerForm.controls['confirmpassword'])" [label]="'Confirm Password'" [type]="'password'"></text-input>
         </div>
       </div>
     </mat-card-content>

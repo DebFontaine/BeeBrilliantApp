@@ -30,6 +30,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { PieChartComponent } from './widgets/pie-chart/pie-chart.component';
 import { BarChartComponent } from './widgets/bar-chart/bar-chart.component';
 import { TrophyCaseComponent } from './widgets/trophy-case/trophy-case.component';
+import { TextInputComponent } from './forms/text-input/text-input.component';
 
 
 
@@ -57,7 +58,8 @@ import { TrophyCaseComponent } from './widgets/trophy-case/trophy-case.component
     CategoryLevelFilterComponent,
     PieChartComponent,
     BarChartComponent,
-    TrophyCaseComponent
+    TrophyCaseComponent,
+    TextInputComponent
   ],
   imports: [
     BrowserModule,

@@ -26,18 +26,18 @@ export class RegisterComponent {
   }
 
 
-  initializeForm()
-  {
+  initializeForm(): void {
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       emailaddress: ['', Validators.required],
       username: ['', Validators.required],
-      password: ['', Validators.required,Validators.minLength(6)],
-      confirmpassword: ['', Validators.required, this.matchValues('password') ]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmpassword: ['', [Validators.required, this.matchValues('password')]]
     });
+  
     this.registerForm.controls['password'].valueChanges.subscribe({
-      next: () => this.registerForm.controls['confirmPassword'].updateValueAndValidity()
+      next: () => this.registerForm.controls['confirmpassword'].updateValueAndValidity()
     });
   }
 
