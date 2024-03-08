@@ -29,6 +29,9 @@
      <Folder Include="Extensions/" />
      <Folder Include="Helpers/" />
      <Folder Include="Middleware/" />
+     <Folder Include="Services/Awards/" />
+     <Folder Include="Services/Repositories/" />
+     <Folder Include="Services/Service Bus/" />
    </ItemGroup>
 
    <ItemGroup>

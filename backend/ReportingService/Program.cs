@@ -19,6 +19,7 @@ builder.Services.AddScoped<IResultSummaryRepository, ResultSummaryRepository>();
 builder.Services.AddScoped<IMessageBus, MessageBus>();
 builder.Services.AddScoped<IAwardsUpdater, AwardsUpdater>();
 builder.Services.AddSingleton<IAzureServiceBusConsumer, ReportDataQueueServiceBusConsumer>();
+builder.Services.AddSignalR(); 
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -38,7 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().
     WithOrigins("https://localhost:4200","http://localhost:4200","https://beebrilliant.azurewebsites.net"));
 
 app.UseHttpsRedirection();
@@ -46,6 +47,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<NotificationHub>("hubs/notification");
+app.MapHub<AwardHub>("hubs/awards");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

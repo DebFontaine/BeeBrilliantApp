@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { Member, User } from '../models/user';
 import { environment } from 'src/environments/environment';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { NotificationService } from './notification.service';
+import { AwardsService } from './awards.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +15,10 @@ export class AccountService {
   private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private notificationService: NotificationService, private awardService: AwardsService) { 
+   
+  }
 
   login(model: any){
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
@@ -21,6 +27,8 @@ export class AccountService {
         if(user) {
           console.log("current user",user)
           this.setCurrentUser(user);
+          this.notificationService.createHubConnection(user)
+          this.awardService.createHubConnection(user)
         }
         return user;
       })
@@ -39,7 +47,6 @@ export class AccountService {
     )
   }
 
-
   setCurrentUser(user:User)
   {
     user.roles = [];
@@ -49,6 +56,7 @@ export class AccountService {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
+
   getMember(username: string){
     return this.http.get<Member>(this.baseUrl + 'users/' + username);
  }
@@ -56,6 +64,8 @@ export class AccountService {
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+    this.notificationService.stopHubConnection()
+    this.awardService.stopHubConnection()
   }
   getDecodedToken(token:string){
     return JSON.parse(atob(token.split('.')[1]));

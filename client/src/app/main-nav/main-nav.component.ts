@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, SimpleChanges, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable, of } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { NgForm } from '@angular/forms';
@@ -9,6 +9,7 @@ import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomSnackbarComponent } from '../snackbar/custom-snackbar/custom-snackbar.component';
+import { NotificationService } from '../services/notification.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class MainNavComponent {
   currentUser$: Observable<User | null> = of(null);
   showAdmin = false;
   private breakpointObserver = inject(BreakpointObserver);
+  private messageSubscription: Subscription | undefined;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -31,7 +33,8 @@ export class MainNavComponent {
   
   constructor(private accountService: AccountService,
     private router: Router,
-    private toast: MatSnackBar)
+    private toast: MatSnackBar,
+    private notificationService: NotificationService)
   {
 
   }
@@ -39,7 +42,22 @@ export class MainNavComponent {
     this.currentUser$ = this.accountService.currentUser$;
   }
 
- 
+  subscribeToAwardMessageThread(): void {
+    this.messageSubscription = this.notificationService.messageThread$.subscribe(messages => {
+      if (messages && messages.length > 0) {
+        const award = messages[messages.length - 1];
+        const toastMessage = `Congratulations! You have earned a new ${award} award!`
+        this.showNotification(toastMessage);
+      }
+    });
+  }
+  showNotification(message: any) {
+    console.log("showing message");
+    this.toast.open(message, 'Close', {
+      duration: 30000, // Duration in milliseconds
+      verticalPosition: 'top', horizontalPosition: 'right'
+    });
+  }
 
   login(loginForm: NgForm) {
     if (loginForm.valid) {
@@ -49,6 +67,7 @@ export class MainNavComponent {
         next: response => {
           console.log(response);
           this.showAdmin = true;
+          this.subscribeToAwardMessageThread();
           this.router.navigateByUrl('/home')
         },
         error: error => {
@@ -61,26 +80,9 @@ export class MainNavComponent {
   logout()
   {
     this.accountService.logout();
-    this.router.navigateByUrl('/register')
-  }
- 
-  displayError(message: string) {
-    this.toast.openFromComponent(CustomSnackbarComponent, {
-      duration: 5000, // Adjust as needed
-      data: {
-        message: message,
-        dismiss: () => this.toast.dismiss(),
-      },
-    });
-  }
-
-  displayAdmin(user: User | null)
-  {
-    if(!user) return false;
-    console.log("user",user)
-    if(user.roles.includes('Admin') || user.roles.includes('Moderator')){
-      return true;
+    if (this.messageSubscription) {
+      this.messageSubscription.unsubscribe();
     }
-    return false;
+    this.router.navigateByUrl('/register')
   }
 }

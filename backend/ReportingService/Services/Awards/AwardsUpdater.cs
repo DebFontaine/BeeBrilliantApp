@@ -1,17 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 namespace ReportingService;
 
 public class AwardsUpdater : IAwardsUpdater
 {
     private readonly ILogger<AwardsUpdater> _logger;
-    public AwardsUpdater(ILogger<AwardsUpdater> logger)
+    private readonly IHubContext<NotificationHub> _notificationHubContext;
+    private readonly IHubContext<AwardHub> _awardHubContext;
+
+    public AwardsUpdater(ILogger<AwardsUpdater> logger,  IHubContext<NotificationHub> notificationHubContext,
+        IHubContext<AwardHub> awardHubContext)
     {
         _logger = logger;
+        _notificationHubContext = notificationHubContext;
+        _awardHubContext = awardHubContext;
     }
 
     public async Task UpdateAwards(DataContext dbContext, ResultSummary resultSummary, Dictionary<string, bool> ruleEvaluationResults)
-    {
+    {  
         var awardRules = new Dictionary<string, AwardType>
         {
             { nameof(GoldAwardForCategoryAndLevelRule), AwardType.Gold },
@@ -35,6 +42,8 @@ public class AwardsUpdater : IAwardsUpdater
                         _logger.LogInformation($"Updating award {awardType}");
                         result.DateAwarded = DateTime.Now;
                         result.Award = awardType;
+                        await _notificationHubContext.Clients.User(resultSummary.UserId.ToString()).SendAsync("ReceiveAwardNotification", awardType.ToString());
+                        await _awardHubContext.Clients.User(resultSummary.UserId.ToString()).SendAsync("AwardUpdated", result);                
                     }
                     else
                     {
@@ -45,8 +54,7 @@ public class AwardsUpdater : IAwardsUpdater
                 {
                     _logger.LogInformation($"Adding award {awardType}");
 
-                    dbContext.Awards.Add(new Awards
-                    {
+                    var newAward = new Awards() {
                         UserId = resultSummary.UserId,
                         Category = resultSummary.Category,
                         Level = resultSummary.Level,
@@ -54,7 +62,11 @@ public class AwardsUpdater : IAwardsUpdater
                         QuizName = resultSummary.QuizName,
                         DateAwarded = DateTime.Now,
                         Award = awardType,
-                    });
+                    };
+
+                    dbContext.Awards.Add(newAward);
+                    await _notificationHubContext.Clients.User(resultSummary.UserId.ToString()).SendAsync("ReceiveAwardNotification", awardType.ToString());
+                    await _awardHubContext.Clients.User(resultSummary.UserId.ToString()).SendAsync("AwardAdded", newAward);
                 }
                 if(dbContext.ChangeTracker.HasChanges())
                     await dbContext.SaveChangesAsync();

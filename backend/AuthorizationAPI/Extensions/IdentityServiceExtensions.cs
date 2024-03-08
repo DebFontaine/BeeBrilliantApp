@@ -10,7 +10,8 @@ public static class IdentityServiceExtensions
 {
     public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
     {
-        services.AddIdentityCore<AppUser>(opt => {
+        services.AddIdentityCore<AppUser>(opt =>
+        {
             opt.Password.RequireNonAlphanumeric = false;
             //opt.Tokens.PasswordResetTokenProvider = "passwordReset";
         })
@@ -18,7 +19,7 @@ public static class IdentityServiceExtensions
         .AddRoleManager<RoleManager<AppRole>>()
         .AddEntityFrameworkStores<DataContext>();
         //.AddTokenProvider<PasswordResetTokenProvider<AppUser>>("passwordReset");
-        
+
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -31,12 +32,28 @@ public static class IdentityServiceExtensions
                     ValidateAudience = false
 
                 };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                        {
+                            context.Token = accessToken;
+                        }
+
+                        return Task.CompletedTask;
+                    }
+
+                };
             });
 
         services.AddAuthorization(opt =>
         {
             opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-            opt.AddPolicy("CreateContentRole", policy => policy.RequireRole("Admin", "Creator"));          
+            opt.AddPolicy("CreateContentRole", policy => policy.RequireRole("Admin", "Creator"));
         });
 
         return services;

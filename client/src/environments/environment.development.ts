@@ -3,7 +3,7 @@ export const environment = {
     accountApiUrl: 'https://localhost:5001/api/',
     quizApiUrl: 'https://localhost:5003/api/',
     reportingApiUrl: 'https://localhost:5005/api/',
-    hubUrl: 'hubs/'
+    hubUrl: 'https://localhost:5005/hubs/'
 }; 
 /* export const environment = {
     production: true,

@@ -13,13 +13,21 @@ import { getLocalDate } from 'src/app/utils/dateutils';
 export class TrophyCaseComponent {
   @Input() userId: number | undefined = 0;
   subscription: Subscription;
+  awardSubscription: Subscription;
   displayedAwards: AwardDisplayItem[] | undefined = [];
 
-  awards: AwardsDto[] | [] = [];
+  awards: AwardsDto[]  = [];
 
   constructor(private awardsService: AwardsService, private dataService: DataService) {
     this.subscription = this.dataService.memberReady$.subscribe(results => {
       this.userId = results.id;
+    });
+    this.awardSubscription = this.awardsService.awardThread$.subscribe(award => {
+      if (award) {
+        console.log("new award")
+          this.awards.push(award);
+          this.displayAwards(this.awards);
+      }
     });
   }
 
@@ -39,7 +47,7 @@ export class TrophyCaseComponent {
       )
     }
   }
-
+  
   displayAwards(awards: AwardsDto[]) {
     if (!awards) return;
 

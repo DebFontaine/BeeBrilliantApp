@@ -20,7 +20,8 @@ public class ReportDataQueueServiceBusConsumer : IAzureServiceBusConsumer
     private ServiceBusProcessor _reportDataProcessor;
 
 
-    public ReportDataQueueServiceBusConsumer(IServiceScopeFactory serviceScopeFactory, IMapper mapper, IConfiguration configuration, ILogger<ReportDataQueueServiceBusConsumer> logger, ILoggerFactory loggerFactory)
+    public ReportDataQueueServiceBusConsumer(IServiceScopeFactory serviceScopeFactory, IMapper mapper, IConfiguration configuration, 
+            ILogger<ReportDataQueueServiceBusConsumer> logger, ILoggerFactory loggerFactory)
     {
         _serviceScopeFactory = serviceScopeFactory;
         _configuration = configuration;

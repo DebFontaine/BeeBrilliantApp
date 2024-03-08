@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Output, ViewChild } from '@angular/core';
 import { AccountService } from '../services/account.service';
-import { Observable, catchError, finalize, of, switchMap, take, tap, throwError } from 'rxjs';
+import { Observable, Subscription, catchError, finalize, of, switchMap, take, tap, throwError } from 'rxjs';
 import { Member, User } from '../models/user';
 import { MatTableDataSource } from '@angular/material/table';
 import { ResultDataService } from '../services/result-data.service';
@@ -11,9 +11,12 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryLevelFilterData } from '../category-level-filter/category-level-filter.component';
-import { ChartOptions } from 'chart.js';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { EventEmitter } from '@angular/core';
 import { DataService } from '../services/data.service';
+import { environment } from 'src/environments/environment';
+import { NotificationService } from '../services/notification.service';
+
 
 
 const EMPTY_DATA: ResultsDto[] = [
@@ -32,6 +35,8 @@ export class HomeComponent implements AfterViewInit {
   currentUser$: Observable<User | null> = of(null);
   user: User | undefined;
   member: Member | undefined;
+  hubUrl = environment.hubUrl;
+  private messageSubscription: Subscription | undefined;
 
   quizResults: ResultsDto[] = [];
   resultDisplayed = false;
@@ -54,9 +59,12 @@ export class HomeComponent implements AfterViewInit {
   loading: boolean = false;
   pageEvent: PageEvent | undefined;
   sortedData: ResultsDto[] = [];
+  hubConnectionStarted: boolean = false;
 
   constructor(private accountService: AccountService, private resultService: ResultDataService,
-    private toast: MatSnackBar, private dataService: DataService) { }
+    private toast: MatSnackBar, private dataService: DataService, public notificationService: NotificationService) {
+    //this.subscribeToMessageThread();
+  }
 
   ngOnInit() {
     this.currentUser$ = this.accountService.currentUser$;
@@ -78,6 +86,22 @@ export class HomeComponent implements AfterViewInit {
       }
     });
 
+  }
+
+  subscribeToMessageThread(): void {
+    this.messageSubscription = this.notificationService.messageThread$.subscribe(messages => {
+      if (messages && messages.length > 0) {
+        const newMessage = messages[messages.length - 1];
+        this.showNotification(newMessage);
+      }
+    });
+  }
+  showNotification(message: any) {
+    console.log("showing message");
+    this.toast.open(message, 'Close', {
+      duration: 3000, // Duration in milliseconds
+      verticalPosition: 'top', horizontalPosition: 'right'
+    });
   }
 
   ngAfterViewInit() {
@@ -111,7 +135,7 @@ export class HomeComponent implements AfterViewInit {
           this.quizResults = response.result;
           this.pagination = response.pagination;
           this.length = this.pagination.totalItems;
-          this.dataSource = new MatTableDataSource(this.quizResults)     
+          this.dataSource = new MatTableDataSource(this.quizResults)
         }
         this.notifySibling();
       }),
@@ -168,16 +192,14 @@ export class HomeComponent implements AfterViewInit {
   notifySibling() {
     this.dataReady.emit();
     this.dataService.notifyDataReady(this.quizResults);
-    
+
   }
   notifyMemberReady() {
-    if(this.member)
-    {
+    if (this.member) {
       this.dataReady.emit();
       this.dataService.notifyMemberReady(this.member);
     }
   }
-  
 
   private populateUserParams() {
     this.userParams = new UserParams();
@@ -198,7 +220,7 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
+  ngOnDestroy() {
 
-
-
+  }
 }

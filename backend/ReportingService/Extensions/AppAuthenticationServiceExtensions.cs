@@ -17,9 +17,26 @@ public static class AppAuthenticationServiceExtensions
         }).AddJwtBearer(options =>
         {
             options.TokenValidationParameters = GetTokenValidationParameters(configuration);
+
+            options.Events = new JwtBearerEvents
+            {
+                OnMessageReceived = context =>
+                {
+                    var accessToken = context.Request.Query["access_token"];
+
+                    var path = context.HttpContext.Request.Path;
+                    if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                    {
+                        context.Token = accessToken;
+                    }
+
+                    return Task.CompletedTask;
+                }
+
+            };
         });
 
-        return services;  
+        return services;
     }
     private static TokenValidationParameters GetTokenValidationParameters(IConfiguration configuration)
     {
@@ -40,6 +57,7 @@ public static class AppAuthenticationServiceExtensions
             ValidAudience = jwtOptions.Audience,
             ValidateAudience = true
         };
+
     }
 
 }
