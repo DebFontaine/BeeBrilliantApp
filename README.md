@@ -80,7 +80,3 @@ In the future, I'd like to play around with Azure functions by adding another me
 
 
 
-```
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbODYwNjQ3MjM0XX0=
--->
