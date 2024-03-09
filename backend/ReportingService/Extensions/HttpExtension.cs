@@ -8,7 +8,7 @@ public static class HttpExtensions
     {
         var jsonOptions = new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
 
-        response.Headers.Add("Pagination", JsonSerializer.Serialize(header, jsonOptions));
-        response.Headers.Add("Access-Control-Expose-Headers", "Pagination"); //CORS
+        response?.Headers.Add("Pagination", JsonSerializer.Serialize(header, jsonOptions));
+        response?.Headers.Add("Access-Control-Expose-Headers", "Pagination"); //CORS
     }
 }

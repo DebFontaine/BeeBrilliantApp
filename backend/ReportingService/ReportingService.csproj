@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.25.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.16">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -26,10 +27,8 @@
   </ItemGroup>
 
    <ItemGroup>
-     <Folder Include="Extensions/" />
      <Folder Include="Helpers/" />
      <Folder Include="Middleware/" />
-     <Folder Include="Services/Awards/" />
      <Folder Include="Services/Repositories/" />
      <Folder Include="Services/Service Bus/" />
    </ItemGroup>

@@ -20,7 +20,7 @@ public class ReportDataQueueServiceBusConsumer : IAzureServiceBusConsumer
     private ServiceBusProcessor _reportDataProcessor;
 
 
-    public ReportDataQueueServiceBusConsumer(IServiceScopeFactory serviceScopeFactory, IMapper mapper, IConfiguration configuration, 
+    public ReportDataQueueServiceBusConsumer(IServiceScopeFactory serviceScopeFactory, IMapper mapper, IConfiguration configuration,
             ILogger<ReportDataQueueServiceBusConsumer> logger, ILoggerFactory loggerFactory)
     {
         _serviceScopeFactory = serviceScopeFactory;
@@ -54,32 +54,31 @@ public class ReportDataQueueServiceBusConsumer : IAzureServiceBusConsumer
     {
         _logger.LogInformation($"Begin processing Service Bus Message {args?.Identifier}");
 
-        var message = args.Message;
-        var body = Encoding.UTF8.GetString(message.Body);
-
-        ResultSummary resultSummaryObj = JsonConvert.DeserializeObject<ResultSummary>(body);
-        _logger.LogInformation($"Received ResultSummary in message body: {body}");
         try
         {
+            var message = args.Message;
+            var body = Encoding.UTF8.GetString(message.Body);
+
+            ResultSummary resultSummaryObj = JsonConvert.DeserializeObject<ResultSummary>(body);
+            _logger.LogInformation($"Received ResultSummary in message body: {body}");
+
+            // Process the message - message has it's own scope within the singleton
             using (var scope = _serviceScopeFactory.CreateScope())
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-                var awardUpdaterLogger = scope.ServiceProvider.GetRequiredService<ILogger<AwardsUpdater>>();
-                var awardsUpdater = scope.ServiceProvider.GetRequiredService<IAwardsUpdater>();
-                var rulesEngine = new AwardRulesEngine(_loggerFactory.CreateLogger<AwardRulesEngine>());
-
-                var ruleEvaluationResults = await rulesEngine.EvaluateRulesAsync(dbContext, resultSummaryObj);           
-                await awardsUpdater.UpdateAwards(dbContext, resultSummaryObj, ruleEvaluationResults);
-
-                await args.CompleteMessageAsync(args.Message);
-
-                _logger.LogInformation($"Completed processing for Service Bus Message {args.Identifier}");
+                //data processor is registered as scoped service - new processor is created for each message scope
+                var dataProcessor = scope.ServiceProvider.GetRequiredService<IAwardDataProcessor>();
+                await dataProcessor.ProcessAwardDataAsync(resultSummaryObj);
             }
+      
+            // Complete the message after successful processing
+            await args.CompleteMessageAsync(args.Message);
+
+            _logger.LogInformation($"Completed processing for Service Bus Message {args.Identifier}");
         }
         catch (Exception ex)
         {
             _logger.LogError($"Error processing Service Bus Data {ex}");
-            throw;
+            await args.AbandonMessageAsync(args.Message);
         }
 
     }

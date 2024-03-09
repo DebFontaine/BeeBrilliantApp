@@ -1,6 +1,6 @@
 ﻿namespace ReportingService;
 
-public class AwardRulesEngine
+public class AwardRulesEngine : IAwardRulesEngine
 {
     private readonly List<IAwardRule> _rules;
     private readonly ILogger<AwardRulesEngine> _logger;
@@ -34,7 +34,8 @@ public class AwardRulesEngine
         {
             try
             {
-                var evaluationResult = await rule.EvaluateAsync(dbContext, resultSummary);
+                var query = rule.GetQueryResult(dbContext, resultSummary);
+                var evaluationResult = await rule.EvaluateAsync(query, resultSummary);
                 _logger.LogInformation($"Rule result {evaluationResult.RuleName}: {evaluationResult.Awarded}");
                 ruleEvaluationResults.Add(evaluationResult.RuleName, evaluationResult.Awarded);
           

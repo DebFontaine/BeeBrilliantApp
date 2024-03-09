@@ -2,5 +2,6 @@
 
 public interface IAwardRule
 {
-    Task<RuleEvaluationResult> EvaluateAsync(DataContext dbContext, ResultSummary resultSummary);
+    IQueryable<ResultSummary> GetQueryResult(DataContext dbContext, ResultSummary resultSummary);
+    Task<RuleEvaluationResult> EvaluateAsync(IQueryable<ResultSummary> query, ResultSummary resultSummary);
 }

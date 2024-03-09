@@ -69,7 +69,9 @@ public abstract class RuleBase : IAwardRule
         return false;
     }
 
-    public abstract Task<RuleEvaluationResult> EvaluateAsync(DataContext dbContext, ResultSummary resultSummary);
+    public abstract Task<RuleEvaluationResult> EvaluateAsync(IQueryable<ResultSummary> query, ResultSummary resultSummary);
+    public abstract IQueryable<ResultSummary> GetQueryResult(DataContext dbContext, ResultSummary resultSummary);
+
 
     private decimal ParseScore(string score)
     {

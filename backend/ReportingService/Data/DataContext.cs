@@ -4,6 +4,10 @@ namespace ReportingService;
 
 public class DataContext: DbContext
 {
+    public DataContext()
+    {
+
+    }
     public DataContext(DbContextOptions options) : base(options)
     {
 

@@ -18,8 +18,22 @@ builder.Services.AddScoped<IAwardsRepository, AwardsRepository>();
 builder.Services.AddScoped<IResultSummaryRepository, ResultSummaryRepository>();
 builder.Services.AddScoped<IMessageBus, MessageBus>();
 builder.Services.AddScoped<IAwardsUpdater, AwardsUpdater>();
+builder.Services.AddScoped<IAwardDataProcessor, AwardDataProcessor>();
+builder.Services.AddScoped<IAwardRulesEngine, AwardRulesEngine>();
 builder.Services.AddSingleton<IAzureServiceBusConsumer, ReportDataQueueServiceBusConsumer>();
-builder.Services.AddSignalR(); 
+if(builder.Environment.IsProduction())
+{
+    var connectionAzureSignalR = builder.Configuration["AzureSignalRConnection"];
+
+    builder.Services.AddSignalR().AddAzureSignalR(connectionAzureSignalR);
+}
+else
+{
+    builder.Services.AddSignalR(); 
+}
+builder.Services.AddSingleton<ISignalRConnectionManager<NotificationHub>,SignalRConnectionManager<NotificationHub>>();
+builder.Services.AddSingleton<ISignalRConnectionManager<AwardHub>,SignalRConnectionManager<AwardHub>>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -49,9 +63,13 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHub<NotificationHub>("hubs/notification");
 app.MapHub<AwardHub>("hubs/awards");
+app.UseSignalRconnectionManager();
+
+
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
+
 
 try
 {

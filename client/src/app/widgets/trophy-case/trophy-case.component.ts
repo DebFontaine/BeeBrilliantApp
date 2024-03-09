@@ -26,6 +26,7 @@ export class TrophyCaseComponent {
       if (award) {
         console.log("new award")
           this.awards.push(award);
+          console.log("awards length",this.awards.length)
           this.displayAwards(this.awards);
       }
     });
@@ -50,6 +51,8 @@ export class TrophyCaseComponent {
   
   displayAwards(awards: AwardsDto[]) {
     if (!awards) return;
+
+    this.displayedAwards = [];
 
     awards.forEach(award => {
       //skip high scores for now

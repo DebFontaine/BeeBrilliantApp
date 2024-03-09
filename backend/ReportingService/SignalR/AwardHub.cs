@@ -5,24 +5,25 @@ using Microsoft.AspNetCore.SignalR;
 namespace ReportingService;
 
 [Authorize]
-public class AwardHub : Hub
+public class AwardHub : BaseHub
 {
-    public override Task OnConnectedAsync()
+    private readonly ISignalRConnectionManager<AwardHub> _connectionManager;
+
+    public AwardHub(ISignalRConnectionManager<AwardHub> connectionManager, ILogger<AwardHub> logger) : base(logger)
     {
-
-        Console.WriteLine("------Connecting To Award Hub--------------");
-        //var Username = Context.User.FindFirstValue(ClaimTypes.);
-
-        var httpContextUser = Context.GetHttpContext().User;
-        var userId = httpContextUser?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        var Username = httpContextUser?.FindFirst(ClaimTypes.Name)?.Value;
-
-        return base.OnConnectedAsync();
+        _connectionManager = connectionManager;
     }
-    public override Task OnDisconnectedAsync(Exception? exception)
+    public override async Task OnConnectedAsync()
     {
-        Console.WriteLine("------Disconnecting from Award Hub--------------");
-        return base.OnDisconnectedAsync(exception);
+        LogActionMessage("Connected to");
+        _connectionManager.AddConnection(Context.ConnectionId);
+        await base.OnConnectedAsync();
+    }
+    public override async Task OnDisconnectedAsync(Exception exception)
+    {
+        LogActionMessage("Diconnected from");
+        _connectionManager.RemoveConnection(Context.ConnectionId);
+        await base.OnDisconnectedAsync(exception);
     }
     public async Task SendAwardAdded(Awards award)
     {

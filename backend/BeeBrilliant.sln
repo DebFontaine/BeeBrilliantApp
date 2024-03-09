@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportingService", "Reporti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{586C090B-A9C3-4217-B358-274D5EB224C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestsReporting", "UnitTestsReporting\UnitTestsReporting.csproj", "{2469E505-9B18-46A0-BFAA-9C255F1D23D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{586C090B-A9C3-4217-B358-274D5EB224C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{586C090B-A9C3-4217-B358-274D5EB224C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{586C090B-A9C3-4217-B358-274D5EB224C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2469E505-9B18-46A0-BFAA-9C255F1D23D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2469E505-9B18-46A0-BFAA-9C255F1D23D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2469E505-9B18-46A0-BFAA-9C255F1D23D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2469E505-9B18-46A0-BFAA-9C255F1D23D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -5,28 +5,35 @@ namespace ReportingService;
 
 public class HighScoreForQuizRule : RuleBase
 {
-    public override async Task<RuleEvaluationResult> EvaluateAsync(DataContext dbContext, ResultSummary resultSummary)
+    public override IQueryable<ResultSummary> GetQueryResult(DataContext dbContext, ResultSummary resultSummary)
     {
-        // Query for result summaries by user ID and quiz ID
         IQueryable<ResultSummary> userQuizQuery = dbContext.ResultSummaries
             .Where(rs => rs.UserId == resultSummary.UserId && rs.QuizId == resultSummary.QuizId);
-
+        
+        return userQuizQuery;
+    }
+        
+    public override async Task<RuleEvaluationResult> EvaluateAsync(IQueryable<ResultSummary> query, ResultSummary resultSummary)
+    {
         // Check for high score for quiz
-        bool isHighScore = await IsHighScore(userQuizQuery, resultSummary.ResultId);
+        bool isHighScore = await IsHighScore(query, resultSummary.ResultId);
         return new RuleEvaluationResult { RuleName = GetType().Name, Awarded = isHighScore };
     }
 }
 
 public class HighScoreForCategoryAndLevelRule : RuleBase
 {
-    public override async Task<RuleEvaluationResult> EvaluateAsync(DataContext dbContext, ResultSummary resultSummary)
+    public override IQueryable<ResultSummary> GetQueryResult(DataContext dbContext, ResultSummary resultSummary)
     {
-        // Query for result summaries by user ID, category, and level
-        IQueryable<ResultSummary> userCategoryLevelQuery = dbContext.ResultSummaries
+       IQueryable<ResultSummary> userCategoryLevelQuery = dbContext.ResultSummaries
             .Where(rs => rs.UserId == resultSummary.UserId && rs.Category == resultSummary.Category && rs.Level == resultSummary.Level);
-
+        
+        return userCategoryLevelQuery;
+    }
+    public override async Task<RuleEvaluationResult> EvaluateAsync(IQueryable<ResultSummary> query, ResultSummary resultSummary)
+    {
         // Check for high score for category and level
-        bool isHighScore = await IsHighScore(userCategoryLevelQuery, resultSummary.ResultId);
+        bool isHighScore = await IsHighScore(query, resultSummary.ResultId);
         return new RuleEvaluationResult { RuleName = GetType().Name, Awarded = isHighScore };
     }
 }
