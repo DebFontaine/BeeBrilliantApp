@@ -30,9 +30,9 @@ public class AwardsUpdater : IAwardsUpdater
     }
     public async Task UpdateAwards(DataContext dbContext, ResultSummary resultSummary, Dictionary<string, bool> ruleEvaluationResults)
     {
-
+#if DEBUG
         await SendTestAwardAndMessage(resultSummary);
-
+#endif
 
 
         foreach (var kvp in ruleEvaluationResults)
@@ -112,7 +112,7 @@ public class AwardsUpdater : IAwardsUpdater
         );
     }
 
-
+#if DEBUG
     private async Task SendTestAwardAndMessage(ResultSummary resultSummary)
     {
         _logger.LogInformation("---- SENDING TEST MESSAGE AND AWARD --");
@@ -132,6 +132,7 @@ public class AwardsUpdater : IAwardsUpdater
             await SendAwardAndAwardNotification(resultSummary.UserId.ToString(), "AwardAdded", "test", newAward);
         }       
     }   
+#endif
 
 
 }
