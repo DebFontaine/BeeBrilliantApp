@@ -2,7 +2,7 @@
 
 BeeBrilliant is a prototype of an educational quiz web application. Users can take and create (create is currently only available via Postman or similar) customized quizzes on various subjects. Upon completion of a quiz, users receive instant feedback on their performance, including their score and any correct/incorrect answers. The app maintains a record of users' quiz history, enabling them to track their progress over time and identify areas for improvement. Users are rewarded with icon badges for reaching milestones, achieving high scores etc. and can view their progress\results on the user dashboard.
 
-**This app has been deployed to Azure** and can be run locally on any dev environment that has the necessary prerequisites (.NET Core 7 etc. see below). By default I shut down the app services on Azure to save $ :-)
+**This app has been deployed to Azure** and can be run locally on any dev environment that has the necessary prerequisites (.NET Core 7 etc. see below). **By default I shut down the app services on Azure to save $ :-)**
 
 ![enter image description here](https://res.cloudinary.com/dngjhgdql/image/upload/v1709997567/home_page_svtj9m.png)
 
@@ -72,7 +72,7 @@ In the future, I'd like to play around with Azure functions by adding another me
 **All Results -** Users can view all their results in a paged list on their home page. They can choose the blue icon to review the result of the quiz or the pink one to retake the quiz.
 ![enter image description here](https://res.cloudinary.com/dngjhgdql/image/upload/v1710006905/home_results_panel_epsnvk.png)
 
-**Awards** - When a user achieves 5 perfect scores in a Category/Level (e.g. Spelling/K-1) they earn a bronze award. Silver for 15 perfect scores, and Gold for 30. The user receives a real-time message when they get an award and the awards appear in the Trophy case on the Home page. 
+**Awards** - When a user achieves 5 perfect scores in a Category/Level (e.g. Spelling/K-1) they earn a bronze award. Silver for 15 perfect scores, and Gold for 30. The user receives a SignalR real-time message when they get an award and the awards appear in the Trophy case on the Home page. 
 ![enter image description here](https://res.cloudinary.com/dngjhgdql/image/upload/v1710006904/signalRNotification_npyfsv.png)
 
 ![enter image description here](https://res.cloudinary.com/dngjhgdql/image/upload/v1710007715/Screen_Shot_2024-03-09_at_1.08.12_PM_ciplb3.png)
