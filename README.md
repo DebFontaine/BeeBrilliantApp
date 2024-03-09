@@ -10,7 +10,7 @@ BeeBrilliant is a prototype of an educational quiz web application. Users can ta
 ![enter image description here](https://res.cloudinary.com/dngjhgdql/image/upload/v1710002005/Bee_Brilliant_App_Architecture_l8uxto.png)
 The app consists of an Angular 16 front end using Material UI components. Backend is a .NET Core 7 with Entity framework. I wanted to experiment and learn a few things so I designed this app to use 3 microservices (each with their own database), .NET Identity, Azure Service Bus and SignalR. 
 
-I'm currently experimenting with Azure API Gateway to create a gateway in the future.
+I'm currently experimenting with Azure API GatewayOcelot to incorporate a Gateway with plans to use Azure APIM to create a gateway in the future.
 
  - Angular 16
  - .NET Core 7
@@ -20,7 +20,7 @@ I'm currently experimenting with Azure API Gateway to create a gateway in the fu
  - Azure Service Bus
  - SignalR/Azure Signal R
  - .NET Identity
- - Azure APIM(in progress)
+ - Ocelot/Azure APIM(in progress)
 
 
 ## *APIs*
@@ -86,3 +86,7 @@ In the future, I'd like to play around with Azure functions by adding another me
 
 
 
+```
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTE2NzczODcwMjBdfQ==
+-->
