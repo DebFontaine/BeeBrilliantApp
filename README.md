@@ -15,6 +15,8 @@ I'm currently experimenting with Azure API Gateway to create a gateway in the fu
  - Angular 16
  - .NET Core 7
  - Entity Framework
+ - MySql database (Quiz and Reporting micorservices)
+ - Sql Server database (AuthAPI database)
  - Azure Service Bus
  - SignalR/Azure Signal R
  - .NET Identity
@@ -44,6 +46,10 @@ To do this you create your class and then wire it up in your Program.cs class us
 ```app.UseMiddleware<ExceptionMiddleware>();```
 
 Ordering is important for this - I put it right at the beginning of the request pipeline
+
+### SqlServer Database on Mac
+
+I tried deploying SQL Server in a docker container to run on my Mac but my Mac has an ARM chip so that wouldn't work. For Development I deployed an Azure SQL Edge server in a docker container instead and was able to use the Entity Framework for Sql Server nuget package so that's a nice workaround if you use a Mac but need to develop for SQL Server. In my Azure Deployment I am using Azure Sql Database
 
 ## *Azure Service Bus and SignalR*
 
