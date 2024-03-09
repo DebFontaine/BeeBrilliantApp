@@ -14,7 +14,6 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private accountService: AccountService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log("interceptor")
     this.accountService.currentUser$.pipe(
       take(1)).subscribe({
         next: user => {

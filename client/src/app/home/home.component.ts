@@ -97,7 +97,6 @@ export class HomeComponent implements AfterViewInit {
     });
   }
   showNotification(message: any) {
-    console.log("showing message");
     this.toast.open(message, 'Close', {
       duration: 3000, // Duration in milliseconds
       verticalPosition: 'top', horizontalPosition: 'right'
@@ -166,7 +165,6 @@ export class HomeComponent implements AfterViewInit {
   }
 
   handlePageEvent(e: PageEvent) {
-    console.log("e", e)
     this.pageEvent = e;
     this.length = e.length;
     this.pageSize = e.pageSize;

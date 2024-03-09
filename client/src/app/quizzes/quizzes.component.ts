@@ -150,7 +150,6 @@ export class QuizzesComponent {
   }
 
   handlePageEvent(e: PageEvent) {
-    console.log("e", e)
     this.pageEvent = e;
     this.length = e.length;
     this.pageSize = e.pageSize;

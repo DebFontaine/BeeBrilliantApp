@@ -25,7 +25,6 @@ export class QuizResultComponent {
 
     this.quizResult = quizData;
     this.quizResult = JSON.parse(this.quizResultStr);
-    console.log('Quiz Result:', this.quizResult);
   }
 
   getQuestionType(question: Question) {

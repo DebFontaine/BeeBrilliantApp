@@ -55,7 +55,6 @@ export class FillInQuestionComponent {
     if(this.quizData)
     {
       this.currentQuestion = this.quizData.data as FillinData;
-      console.log("current Question", this.currentQuestion);
       this.title = this.quizData.title ?? this.quizData.category;
       this.level = this.quizData.level;
       this.word = this.currentQuestion.word;
@@ -112,7 +111,6 @@ export class FillInQuestionComponent {
   }
 
   sendMessage(message : string) {
-    console.log("sending message");
     this.messageEvent.emit(message);
   }
 }

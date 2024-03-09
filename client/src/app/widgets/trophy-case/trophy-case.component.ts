@@ -26,7 +26,6 @@ export class TrophyCaseComponent {
       if (award) {
         console.log("new award")
           this.awards.push(award);
-          console.log("awards length",this.awards.length)
           this.displayAwards(this.awards);
       }
     });

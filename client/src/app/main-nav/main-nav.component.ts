@@ -52,9 +52,8 @@ export class MainNavComponent {
     });
   }
   showNotification(message: any) {
-    console.log("showing message");
     this.toast.open(message, 'Close', {
-      duration: 30000, // Duration in milliseconds
+      duration: 3000, // Duration in milliseconds
       verticalPosition: 'top', horizontalPosition: 'right'
     });
   }
@@ -65,7 +64,6 @@ export class MainNavComponent {
       this.model.password = loginForm.value.password;
       this.accountService.login(this.model).subscribe({
         next: response => {
-          console.log(response);
           this.showAdmin = true;
           this.subscribeToAwardMessageThread();
           this.router.navigateByUrl('/home')

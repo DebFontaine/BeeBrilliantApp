@@ -31,7 +31,6 @@ export class CategoryLevelFilterComponent {
   }
 
   onCategorySelectionChange(event: MatSelectChange) {
-    console.log(event)
     this.selectedCategoryOption = event.value;
   }
   onLevelSelectionChange(event: MatSelectChange) {

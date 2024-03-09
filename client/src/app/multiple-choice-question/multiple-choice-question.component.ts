@@ -73,7 +73,6 @@ export class MultipleChoiceQuestionComponent {
   }
 
   sendMessage(message : string) {
-    console.log("sending message");
     this.messageEvent.emit(message);
   }
 
@@ -81,7 +80,6 @@ export class MultipleChoiceQuestionComponent {
   {
       if(this.quizData)
       {
-        console.log("gamedata", this.quizData)
         this.currentQuestion = this.quizData.data as MultiChoiceData;
         console.log("current Question", this.currentQuestion);
         this.title = this.quizData.title ?? this.quizData.category;
@@ -94,7 +92,6 @@ export class MultipleChoiceQuestionComponent {
 
   }
   ngOnChanges(changes: SimpleChanges) {
-    //console.log('Input changed:', changes['gameData'].currentValue);
     this.reset();
     this.transformData();
   }

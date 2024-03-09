@@ -42,12 +42,10 @@ export class RegisterComponent {
   }
 
   onSubmit(): void {
-    console.log(this.registerForm);
     this.model.username = this.registerForm.value.username;
     this.model.password = this.registerForm.value.password;
     this.accountService.register(this.model).subscribe({
       next: response => {
-        console.log(response);
         this.cancel();
         this.router.navigateByUrl('/home');
       },
@@ -61,8 +59,6 @@ export class RegisterComponent {
   }
   matchValues(matchTo: string): ValidatorFn {
     return (control: AbstractControl) =>{
-      console.log("control value:", control.value)
-      console.log("Match:", matchTo)
       return control.value === control.parent?.get(matchTo)?.value ? null : {notMatching: true};
     }
     

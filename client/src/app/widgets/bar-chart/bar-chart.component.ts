@@ -50,10 +50,8 @@ export class BarChartComponent {
   ngOnInit() {
     this.dataService.dataReady$.subscribe(() => {
       const { uniqueDates, averageScores } = this.getUniqueDatesAndAverageScore();
-      console.log("NgOnInit", uniqueDates)
       const labels = uniqueDates.slice(0,this.maxNumberOfDays);
       const datasets = this.getDatasetValues(averageScores, uniqueDates)
-      // Populate barChartData
        this.barChartData = {
          labels: labels,
          datasets: datasets.slice(0,this.maxNumberOfDays) 

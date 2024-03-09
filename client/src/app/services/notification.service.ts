@@ -27,12 +27,11 @@ export class NotificationService {
       })
       .withAutomaticReconnect()
       .build();
-      console.log("token", user.token)
+
       this.hubConnection.start()
         .catch(error => console.log(error))
 
       this.hubConnection.on('ReceiveAwardNotification', message => {
-        console.log("notify")
         this.messageThread$.pipe(take(1)).subscribe({
           next: messages => {
             console.log("new message", message);

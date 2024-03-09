@@ -37,18 +37,9 @@ export class AwardsService {
       })
       .withAutomaticReconnect()
       .build();
-      console.log("token", user.token)
+      
       this.hubConnection.start()
         .catch(error => console.log(error))
-
-      /* this.hubConnection.on('AwardAdded', award => {
-        this.awardThread$.pipe(take(1)).subscribe({
-          next: awards => {
-            console.log("award from signalR", award)
-            this.awardThreadSource.next(award);
-          }
-        })
-      }) */
 
       this.hubConnection.on('AwardAdded', award => {
         console.log("award from signalR", award);

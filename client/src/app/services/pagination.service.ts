@@ -15,7 +15,6 @@ export class PaginationService {
   getPagedResults<T>(apiUrl: string, userParams: UserParams): Observable<PaginatedResult<T>> {
     let params = new HttpParams();
     if (userParams) {
-      console.log("Pagination", userParams)
       if (userParams.pageNumber && userParams.itemsPerPage) {
         params = params.append('pageNumber', userParams.pageNumber.toString());
         params = params.append('pageSize', userParams.itemsPerPage.toString());
@@ -26,7 +25,6 @@ export class PaginationService {
       if (userParams.level && userParams.level !== "") {
         params = params.append('level', userParams.level);
       }
-      console.log("Pagination params", params)
     }
 
     return this.http.get<T>(apiUrl, { observe: 'response', params })

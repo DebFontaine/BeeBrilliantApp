@@ -17,7 +17,6 @@ export class DataService {
 
 
   notifyMemberReady(member: Member) {
-    console.log("member Ready",member)
     this.memberReadySource.next(member);
   }
   notifyDataReady(results: ResultsDto[]) {

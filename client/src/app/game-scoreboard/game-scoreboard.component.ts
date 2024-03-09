@@ -14,8 +14,6 @@ export class GameScoreboardComponent {
   reportDisplayed: boolean = false;
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('Input changed:', changes['correct']?.currentValue);
-    console.log('Input changed:', changes['incorrect']?.currentValue);
     this.progressValue = this.correct;
   }
   quizComplete()
@@ -41,7 +39,6 @@ export class GameScoreboardComponent {
     }
   }
   sendMessage(message : string) {
-    console.log("sending message");
     this.messageEvent.emit(message);
   }
 }

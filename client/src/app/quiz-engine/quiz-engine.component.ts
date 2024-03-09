@@ -42,7 +42,6 @@ export class QuizEngineComponent {
 
     this.quiz = this.route.snapshot.data["quiz"];
     this.member = this.route.snapshot.data["member"];
-    console.log("ngOnInit", this.quiz, this.member)
     this.copyQuestions();
   }
 
@@ -51,7 +50,6 @@ export class QuizEngineComponent {
     if (this.quizCopy) {
       this.quizData = this.quizCopy.questions;
       this.totalQuestions = this.quizData.length;
-      console.log(this.quiz)
     }
   }
 
@@ -96,11 +94,9 @@ export class QuizEngineComponent {
     this.enableNext = false;
     this.copyQuestions();
     this.unsubscribe();
-    console.log("original question", this.quiz!.questions)
   }
 
   receiveMessage(message: string) {
-    console.log("message received", message)
     this.receivedMessage = message;
     switch (message) {
       case "correct":
