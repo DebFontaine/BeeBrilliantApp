@@ -49,9 +49,9 @@ export class HomeComponent implements AfterViewInit {
 
   pagination: Pagination | undefined;
   pageNumber = 0;
-  pageSize = 10;
+  pageSize = 25;
   length = 0;
-  pageSizeOptions = [1, 2, 5, 10, 25];
+  pageSizeOptions = [5, 10, 25, 50];
   userParams: UserParams = new UserParams();
 
   displayedColumns: string[] = ['quizName', 'category', 'level', 'score', 'dateTaken', 'viewResult'];
