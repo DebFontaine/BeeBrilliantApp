@@ -4,6 +4,7 @@ import { BehaviorSubject, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Message } from '../models/message';
 import { User } from '../models/user';
+import * as signalR from '@microsoft/signalr';
 
 @Injectable({
   providedIn: 'root'
